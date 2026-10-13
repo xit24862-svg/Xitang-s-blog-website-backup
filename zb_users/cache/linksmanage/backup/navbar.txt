@@ -1,0 +1,1 @@
+<li id="nvabar-item-index"><a href="http://www.xitangnb.cn/">首页</a></li><li id="navbar-page-2"><a href="http://www.xitangnb.cn/?id=2">留言本</a></li>

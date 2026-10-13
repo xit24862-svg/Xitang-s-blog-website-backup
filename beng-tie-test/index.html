@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>崩铁人格原型测试</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">Honkai Style Persona Lab</p>
+      <h1>测测你最像崩铁哪类人格</h1>
+      <p class="subtitle">36题权重计分，自动生成你的主人格与副人格</p>
+    </header>
+
+    <section id="quizCard" class="card">
+      <div class="meta">
+        <p id="progressText" class="progress">题目加载中...</p>
+      </div>
+      <div class="question-shell">
+        <h2 id="questionTitle" class="question-title"></h2>
+        <form id="optionsForm" class="options" aria-label="作答选项"></form>
+      </div>
+      <div class="actions">
+        <button id="prevBtn" type="button" class="btn ghost">上一题</button>
+        <button id="nextBtn" type="button" class="btn">下一题</button>
+      </div>
+    </section>
+
+    <section id="resultCard" class="card hidden" aria-live="polite">
+      <p id="resultBadge" class="result-badge"></p>
+      <h2 id="resultTitle" class="result-title"></h2>
+      <p id="resultSub" class="result-sub"></p>
+      <p id="resultDesc" class="result-desc"></p>
+
+      <div class="result-visual">
+        <img id="resultImage" class="result-image hidden" alt="">
+        <p id="resultImageHint" class="image-hint hidden"></p>
+      </div>
+
+      <div class="result-grid">
+        <article class="panel">
+          <h3>分数概览</h3>
+          <div id="scoreBars" class="bars"></div>
+        </article>
+        <article class="panel">
+          <h3>关键依据（主人格）</h3>
+          <ul id="evidenceList" class="evidence-list"></ul>
+        </article>
+      </div>
+
+      <article class="panel">
+        <h3>判读建议</h3>
+        <ul id="tipsList" class="tips-list"></ul>
+      </article>
+
+      <div class="actions actions-result">
+        <button id="retryBtn" type="button" class="btn ghost">重新测试</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="quiz-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

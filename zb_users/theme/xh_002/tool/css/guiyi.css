@@ -1,0 +1,27 @@
+
+.guiyi_div-with-line {
+    position: relative;
+    padding-bottom: 10px; /* Adjust this value as needed */
+}
+
+.guiyi_div-with-line::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px; /* Adjust the height of the line as needed */
+    background-color: #ccc; /* Adjust the color of the line as needed */
+    z-index: -1; /* Ensure the line is behind the spans */
+}
+
+.guiyi_div-with-line2 {
+    border-bottom: 2px solid #009688; /* Adjust the color of the border as needed */
+    padding: 9px; /* Adjust padding as needed */
+    color: #009688;
+    margin-right: 10px;
+}
+
+.guiyi_ico_pd {
+    padding: 0 3px 0 0 !important;
+}

@@ -1,0 +1,1417 @@
+/*
+** time：  2023-09-21
+** author：随然
+** site：  ranzt.com
+** qq：    201825640
+*/
+
+/*修改默认编辑器面板的渐变灰为纯白*/
+.edui-default .edui-editor-toolbarboxouter {
+  background-color: #fff!important;
+  background-image: linear-gradient(to bottom, #fff, #fff)!important;
+}
+/*表格列表升降排序显示优化（要不做这个插件都没发现有这功能）*/
+th {
+  position: relative;
+}
+th a.order_button.element-visibility-hidden{
+  visibility: visible!important;
+}
+th a.order_button{
+  position: absolute!important;
+  width: 30px!important;
+  height: 30px!important;
+  line-height: 30px!important;
+}
+th a.order_button i{
+  position: absolute!important;
+  font-size: 2em!important;
+  top:-1px!important;
+  left:-5px!important;
+  width: inherit;
+  height: inherit;
+  text-align: center;
+  line-height: inherit;
+}
+/*override古老的/zb_system/css/admin2.css*/
+a:hover {
+  color: #3d69aa;
+}
+body {
+  background: #f1f2f4;
+  min-width: 100%;
+}
+#divMain input[type="text"], #divMain select, #divMain textarea, form.search input[type="file"]{
+  color: #333;
+}
+#topmenu {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+/*删除[官方网站]，到usr那边再js创建*/
+#topmenu li:last-child {
+  display: none;
+}
+/*让[后台首页]&[网站设置]一直排在前面*/
+#topmenu1 {
+  order: -2;
+}
+#topmenu2 {
+  order: -1;
+}
+.menu {
+  height: 36px;
+  line-height: 36px;
+}
+.menu ul li, .menu ul li a, .menu ul li a:hover {
+  line-height: inherit;
+  height: inherit;
+  border-radius: 5px;
+  color: #333;
+  background: transparent;
+}
+.menu ul li a, .menu ul li a:hover {
+  padding: 0 10px;
+}
+.menu ul li a:hover {
+  background: #f1f2f4;
+}
+.menu ul li.on a, .menu ul li.on a span, .menu ul li.on a i {
+  color: #3d69aa;
+  background: #f1f2f4;
+}
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: #fff;
+  height:64px;
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, .05);
+}
+.header .user, .header .menu {
+  flex: 1;
+  position: static;
+}
+.header .logo {
+  padding:0;
+}
+.header .user {
+  order: 2;
+  margin-right: 20px;
+}
+/*移动端user图标旋转*/
+/*@keyframes spin {*/
+/*  from {*/
+/*  transform: rotate(0deg);*/
+/*  }*/
+/*  to {*/
+/*  transform: rotate(360deg);*/
+/*  }*/
+/*}*/
+.header .user, .header .userbtn a, .header .userbtn a:hover {
+  color:#333;
+}
+.header .menu {
+  order: 0;
+  display: flex;
+  flex: 3;
+}
+.logo img {
+  background: url("../img/logo.svg") center center no-repeat;
+  display: block;
+}
+.header .logo {
+  width: 13rem;
+}
+.left {
+  background: transparent;
+  width: 13rem;
+}
+.main {
+  padding-left: 13rem;
+  padding-right: 20px;
+}
+#divMain2{
+  margin-bottom: 20px;
+}
+.left #leftmenu {
+  margin-top: 20px;
+}
+.left #leftmenu li {
+  height: 42px;
+  background: transparent;
+  cursor: pointer;
+}
+.left #leftmenu li span i {
+  line-height: 42px;
+  color: #70747b;
+  display: inline-block;
+  vertical-align: top;
+  padding-left: 10px;
+}
+.left #leftmenu li a:hover span i {
+  color: #3d69aa;
+}
+.left #leftmenu .on a span i, .left #leftmenu .on a:hover span i {
+  color: #fff;
+}
+.left #leftmenu a, .left #leftmenu span {
+  width: inherit;
+  height: 42px;
+  line-height: 42px;
+  cursor: pointer;
+  padding-right: 1em;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.left #leftmenu, .left #leftmenu li {
+  width: calc(100% - 10px);
+  padding-left: 10px;
+}
+.left #leftmenu a:hover {
+  color: #3d69aa;
+  background: #fff;
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, .05);
+}
+.left #leftmenu li.split {
+  border-top: 1px solid #ccc;
+  margin: 5px 0 10px 40px;
+  width: calc(100% - 100px);
+  height: 1px !important;
+  text-align: center;
+  background: transparent;
+}
+#leftmenu .split {
+  font-size: 12px;
+  color:#d2d5df;
+}
+#divMain a, #divMain2 a {
+  color: #3d69aa;
+}
+#divMain a:hover, #divMain2 a:hover {
+  color: #3d69aa;
+}
+.left #leftmenu .on a, .left #leftmenu #on a:hover, .left #leftmenu #on a:hover span i {
+  color: #fff;
+  background: #6390e8;
+}
+.left #leftmenu span.bgicon {
+  background-position: 10px 14px;
+  padding-left: 32px;
+}
+/*调整首页布局*/
+.indexPage2#divMain2 {
+  display: flex;
+  flex-wrap: wrap;
+}
+#thankslist td i {
+  color: #70747b;
+}
+#tbUpdateInfo b{
+  font-weight: normal;
+}
+#tbUpdateInfo, #thankslist {
+  box-sizing: border-box;
+  width: calc(50% - 10px);
+}
+#tbUpdateInfo {
+  margin-right: 20px;
+}
+#tbStatistic {
+  width: 100%;
+}
+/*去掉多余的刷新按钮*/
+#tbUpdateInfo table th small {
+  display: none;
+}
+.indexPage table th > i {
+  display: none;
+}
+#tbUpdateInfo table p b {
+  font-weight: normal;
+}
+#tbUpdateInfo table a {
+  color: #333!important;
+  text-decoration: none;
+}
+#divMain2 table {
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, .05);
+  background-color: #fff;
+  background-clip: border-box;
+  border-radius: 5px;
+  margin-bottom:20px!important;
+  overflow: hidden;
+}
+#divMain2 .edui-default table {
+  margin-bottom: 0!important;
+}
+#tbStatistic .td20 {
+  width: 6%;
+}
+#thankslist .td20 {
+  width: 15%;
+}
+#divMain table th, #divMain table td, #tbUpdateInfo p {
+  padding-left: 20px;
+  padding-right: 10px;
+}
+#divMain table tr th:first-child{
+  min-width: 60px;
+}
+#divMain form table.tableFull th:not(.imgcheck),
+#divMain form table.tableFull td:not(.imgcheck),
+#divMain form table.tableFull td div:not(.imgcheck),
+#divMain form table.tableFull td span:not(.imgcheck){
+  /*width: auto;*/
+  max-width: 350px!important;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+/*很多国产浏览器比如QQ浏览器好像还不支持:not()  https://caniuse.com/?search=%3Anot()*/
+#divMain form table .imgcheck{
+  overflow: unset;
+}
+#divMain table td:last-child{
+  padding-right: 20px;
+}
+#tbUpdateInfo p:nth-child(n+8) {
+  display: none;
+}
+#tbUpdateInfo p:nth-child(n+7) {
+  border: none;
+}
+#divMain td, th {
+  border-right:none;
+}
+/*附件管理，日期不折行*/
+#divMain .tableFull td.td15{
+  white-space: nowrap;
+}
+#divMain table > tbody > tr, #tbUpdateInfo p {
+  border-bottom:1px solid #eee;
+}
+#tbUpdateInfo td {
+  padding: 0!important;
+}
+#tbUpdateInfo td:hover {
+  background: none;
+}
+#tbUpdateInfo p {
+  line-height: 2.5;
+}
+#tbUpdateInfo p:last-child {
+  line-height: 3;
+}
+#divMain table tbody tr:last-child {
+  border-bottom: none;
+}
+#divMain table th {
+  background: #fdfdff;
+  line-height: 2;
+  border-bottom: 2px solid #eee;
+  text-align: left;
+  padding-left: 16px;
+}
+#thankslist td a, #thankslist td span {
+  padding-right:9px;
+}
+#divMain #thankslist tr:first-child {
+  border-bottom:1px solid #eee;
+}
+#tbStatistic tr td:nth-child(3) {
+  border-left:1px solid #eee;
+}
+table.table_striped > tbody > tr:nth-of-type(2n+1) {
+  background-color: transparent;
+}
+table.table_hover > tbody > tr > td:hover, table.table_hover > tbody > tr > th:hover, table.table_hover > tbody > tr:hover > td, table.table_hover > tbody > tr:hover > th, #tbUpdateInfo p:hover {
+  background-color: #f8f8f8;
+}
+table > tbody > tr > td:hover, table > tbody > tr > th:hover, table > tbody > tr:hover > td, table > tbody > tr:hover > th {
+  background-color: #f8f8f8;
+}
+table > tbody > tr:nth-of-type(2n+1) {
+  background-color: #fff;
+}
+.tableBorder {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+div.hint {
+  width: calc(100% - 13rem - 20px);
+  position: absolute;
+  top: 0;
+  z-index: 9;
+  margin-top: calc(64px + 20px);
+  left: 13rem;
+  text-align: left;
+}
+div.hint a{
+  text-decoration: underline;
+}
+div.hint p{
+  width: 100%;
+  line-height: 2.4em;
+  padding-left: 1em;
+  border-radius: 5px;
+}
+div.hint p::before{
+  font-size: 18px;
+}
+div.hint p.hint_bad, div.hint p.hint_failed {
+  border-left: 5px solid #ffc1c1;
+  color: #8c0a0a;
+}
+div.hint p.hint_good, div.hint p.hint_succeed,
+div.hint p.hint_good a, div.hint p.hint_succeed a{
+  border-left: 5px solid #93cc8b;
+  color: #166c17;
+  background: #d9e8d6;
+}
+div.hint p.hint_good a{
+  border-left:none;
+}
+div.hint p.hint_tips {
+  border-left: 5px solid #aab7e6;
+  color: #3d69aa;
+  background: #e4eafd;
+}
+/*清除个别应用多余的p的间距*/
+form > p {
+  padding-bottom: 0.5em 0 0 0;
+}
+#batch a, p.hint a {
+  color: #3d69aa;
+}
+#batch a:hover, p.hint a:hover {
+  text-decoration: underline;
+}
+.divHeader {
+  margin-bottom: 5px;
+}
+.divHeader, .divHeader2 {
+  background: none!important;
+  /*兼容部分插件设置了没做控制的图标*/
+  background-position: -999px !important;
+  background-repeat: no-repeat !important;
+}
+/*去掉新建文章的[文章编辑]标题*/
+ .divHeader2 {
+  display: none;
+}
+.divHeader i, .divHeader2 i {
+  display: none;
+}
+.main > #divMain > div[class^="divHeader"], .main > #divMain2 > div[class^="divHeader"] {
+  padding-left: 2px;
+  margin-top: 15px;
+}
+.user #avatar {
+  border-radius: 5px;
+}
+#divMain .pagebar a {
+  border-radius: 0.3em;
+  border:none;
+  margin: 1px;
+  padding:0;
+  background: #fff;
+  height: 40px;
+  width: 40px;
+  display: inline-block;
+  line-height: 40px;
+  text-align: center;
+  color: #333;
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, .05);
+}
+#divMain .pagebar a:hover {
+  border:none;
+  color: #fff;
+  background: #6390e8;
+}
+.pagebar span {
+  font-weight: normal;
+}
+.SubMenu a {
+  float: left !important;
+  background: #fff;
+  border-radius: 3px;
+  border: 1px solid #eaeaea;
+}
+.SubMenu span.m-now {
+  background: #3d69aa;
+  border-radius: 3px;
+}
+.SubMenu a:hover span.m-now {
+  color: #fff;
+}
+.SubMenu a:hover {
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, .05);
+  background: linear-gradient(to bottom, #fff, #f8f8f8);
+  border: 1px solid #ddd;
+}
+.SubMenu span {
+  color: #666;
+}
+.SubMenu span:hover {
+  color: #333;
+}
+.content-box-header .content-box-tabs li a span {
+  padding: 5px 20px;
+}
+.content-box li, .content-box li a, .content-box .content-box-tabs a, .content-box .content-box-tabs a.current {
+  height: 2.8em;
+  line-height: 2.8em;
+  display: inline-block;
+}
+.content-box li a {
+  background: transparent;
+  color:#333!important;
+}
+.content-box li a:hover {
+  background: #e8e8e8;
+  border-top: 2px solid #ddd;
+}
+.content-box .content-box-tabs a {
+  border:none;
+  border-top: 2px solid transparent;
+  padding:0;
+  margin: 0;
+}
+.content-box .content-box-tabs a.current {
+  background: #fff;
+  padding: 0;
+  margin: 0;
+  color: #3d69aa!important;
+  border-top:2px solid #3d69aa;
+}
+#divMain .content-box-content{
+  border-top-left-radius: 0;
+}
+#LinksManageList input,#divMain input[type="text"]:focus-visible, #divMain textarea:focus-visible {
+  outline: none;
+}
+#LinksManageList input:focus,input[name="app_token"]:focus,#divMain input[type="text"]:focus, #divMain textarea:focus,input.edit:focus,input[type="password"]:focus{
+  border-color: #3D69AA;
+  outline: 0;
+  box-shadow: 0 0 0 .2rem rgba(13,110,253,.1);
+}
+#LinksManageList input,input[name="app_token"],#divMain input[type="text"], #divMain select, #divMain textarea, form.search input[type="file"],
+input.edit,input[type="password"] {
+  border-radius: 3px;
+}
+input[name="app_token"],#divMain input[type="text"],input.edit {
+  height: 33px;
+}
+input[name="app_token"],#divMain input[type="text"], #divMain textarea,input.edit,input[type="password"] {
+  padding: 10px;
+  min-width: 60px;/*处理部分主题配置项给的宽度太小*/
+}
+input.button, input[type="submit"], input[type="button"] {
+  color: #ffffff;
+  font-size: 1.05em;
+  height: 29px;
+  padding: 2px 18px 3px 18px;
+  margin: 0;
+  background: #3d69aa;
+  border: none;
+  cursor: pointer;
+  border-radius:3px;
+}
+input.button:hover {
+  background: #6390e8;
+}
+form.search {
+  padding: 5px 1em;
+  position: relative;
+  background: #fff;
+  margin: 0.4em 0 0.8em 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, .05);
+}
+.tdCenter {
+  text-align: left;
+}
+#frmTheme div.theme-other {
+  background: #f8f8f8;
+  border-radius:5px;
+}
+#frmTheme div.theme-other:hover {
+  border: 1px solid #fff;
+  box-shadow: 0 1px 12px 0 #ccc;
+}
+#frmTheme div.theme-now {
+  float: left;
+  background: #fff;
+  padding: .6em 1em;
+  margin: 0 1em 1em 0;
+  border: 1px solid #3d69aa;
+  border-radius: 5px;
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, .05);
+}
+#frmTheme div.theme-img span {
+  border-radius: 3px;
+}
+form#frmTheme {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+#frmTheme div.theme {
+  box-sizing: border-box;
+  width: 19%;
+  margin-bottom: calc((100% - 19%*5)/4);
+  margin-right: calc((100% - 19%*5)/4);
+}
+form#frmTheme .theme:nth-child(5n+3) {
+  margin-right: 0;
+}
+#frmTheme div.theme-now div,
+#frmTheme div.theme-other div {
+  max-width: 100%;
+}
+#frmTheme div.theme select.edit {
+  width: calc(100% - 80px);
+}
+#frmTheme div.theme select.edit {
+  height: 29px;
+}
+#frmTheme div.theme-img span {
+  height: 23vh;
+  padding-bottom: 0;
+}
+#frmTheme div.theme-img span img {
+  position: relative;
+}
+.widget-list {
+  border: none;
+  background: #fff;
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, .05);
+  border-radius: 5px;
+  padding-bottom: 30px;
+}
+.siderbar-list {
+}
+.widget-list-header, .siderbar-header, .siderbar-note {
+  background: #fdfdff;
+  line-height: 2;
+  border-bottom: 2px solid #eee;
+  text-align: left;
+  padding-left: 20px;
+  border-radius: 5px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.siderbar-drop {
+  border-radius: 5px;
+}
+.siderbar-note {
+  border: none;
+}
+.widget-list-note, .siderbar-note {
+  text-align: left;
+  padding: 0 20px;
+  margin: 10px 0 20px 0;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.widget-left .widget {
+  /*width: calc((100% - 6*20px)/3);jq.ui拖拽后宽度会变长，暂时不改，保持原有固定宽度*/
+  border: none;
+  margin: 5px 20px;
+  padding: 0px;
+}
+.widget {
+  border: none;
+}
+.widget_source_system .widget-title{
+  background: #f1f2f4;
+  border-radius: 3px;
+  border: 1px solid #e6e6e6;
+}
+.widget-title i {
+  margin-left: 5px;
+  margin-right: 5px;
+  color: #3d69aa;
+}
+.widget-title a:hover i {
+  color: #6390e8;
+}
+.widget_source_plugin .widget-title {
+  background: #fbebda;
+  border-radius: 3px;
+  border: 1px solid #f9dac4;
+}
+.widget_source_theme .widget-title,
+.widget_source_themeinclude .widget-title{
+  background: #d6e4ff;
+  border-radius: 3px;
+  border: 1px solid #c4ccf9;
+}
+.siderbar-sort-list {
+  min-height: 50px;
+}
+.siderbar-header:hover {
+  background: #fff;
+}
+.siderbar-list .ui-icon {
+  margin-top: 6px;
+}
+#response5 strong {
+  background: #3D69AA;
+  border:none;
+  border-radius: 3px;
+}
+#response5 strong:hover {
+  background: #6390E8;
+}
+.uploadimg strong {
+  border-radius: 3px!important;
+  margin-top: 4px!important;
+}
+#divMain2.edit form#edit {
+  background: #fff;
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, .05);
+  border-radius: 5px;
+  padding: 20px;
+  margin: 20px 0;
+  overflow: auto;
+  zoom: 1;
+}
+#totorobox textarea {
+  border: 1px solid #ddd;
+}
+.pagebar {
+  padding: 0em 0 2em 0;
+}
+.tdCenter.plugin img{
+  border-radius: 5px;
+}
+/*override https://app-cdn.zblogcn.com/zb_users/theme/appcentre_server/style/app.8d1ccdb028e14d2abd997d95d7fbbf57.css*/
+.page-client .container {
+  max-width: 100%!important;
+}
+.page-footer {
+  background: transparent!important;
+  text-align: center!important;
+  color: #b2b5bd!important;
+  font-size: 12px!important;
+}
+.page-footer .container{
+  max-width:100%!important;
+}
+.page-client .pagebar a {
+  border: none!important;
+  background: #f1f2f4!important;
+  box-shadow: none!important;
+}
+.page-client #divComments a {
+  color:#333!important;
+}
+.page-client .pagebar a:hover {
+  background: #6390e8!important;
+}
+.page-client .pagebar a:hover span {
+  color: #fff!important;
+}
+.page-client .page-with-sidebar{
+  gap:10px;
+}
+.page-client .page-with-sidebar .content h2 {
+  border-left: none!important;
+  color: #444!important;
+}
+.page-client .page-with-sidebar .pagebar{
+  padding-left:0!important;
+  text-align: left!important;
+}
+.page-client {
+  padding:20px 10px 10px 10px !important;
+  background: #fff!important;
+  border-radius: 5px!important;
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, .05)!important;
+}
+.page-client .clickable-link {
+  border: none!important;
+  border-radius: 5px!important;
+}
+.app-content .app-content-data .contents > div img{
+  max-width: 100% !important;
+  height: auto !important;
+}
+.app-intro-list .app-intro-aspplugin, .app-intro-list .app-intro-phpplugin {
+  background: #fafafa!important;
+}
+@media screen and (min-width: 1200px) {
+  .app-intro-list{
+    justify-content: flex-start!important;
+    gap: 20px!important;
+  }
+}
+#divMain2 .warning {
+  font-size: 1em!important;
+  line-height: 2em!important;
+  text-align: left!important;
+  background: white!important;
+  padding: 20px 20px!important;
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, .05)!important;
+  border-radius:5px!important;
+}
+#divMain2 .warning input.button {
+  padding: 8px 20px!important;
+}
+.page-client .sidebar-item .title h4 {
+  padding: 5px 10px !important;
+  border-left: none !important;
+  border-radius: 5px !important;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  background-image: linear-gradient(to left, #f9f9f9, #F1F2F4) !important;
+  border-left: 2px solid #3d69aa !important;
+}
+.page-client #appbuy_local .content div p:first-child{
+  display: flex;
+  justify-content: space-between;
+}
+.page-client #divSearch input[type="text"] {
+  width: 300px!important;
+  border-top-right-radius: 0!important;
+  border-bottom-right-radius: 0!important;
+}
+.page-client #divSearch input[type="submit"] {
+  border-top-left-radius: 0!important;
+  border-bottom-left-radius: 0!important;
+  height: 33px;
+}
+.page-client #divComments li {
+  padding: 3px 0!important;
+}
+.page-client #divComments li a:hover {
+  color:#3d69aa !important;
+}
+.page-client #divAppType button {
+  border-radius: 3px;
+  font-size: 14px!important;
+  padding: 10px 15px!important;
+}
+.page-client .index-app-header-list a {
+  font-size: 16px!important;
+}
+.page-client .index-box {
+  margin-bottom: 20px!important;
+}
+.page-client .index-box:first-child {
+  margin-bottom: 0!important;
+}
+.page-client .clickable-link, .page-client .clickable-link{
+  border: none!important;
+  box-shadow: 0 1px 4px 0 #ddd !important;
+}
+.page-client .clickable-link:focus, .page-client .clickable-link:hover{
+  border: none!important;
+  box-shadow: 0 5px 20px 0 #ddd!important;
+  transition: none;
+}
+.app-intro-list .app-intro-asptheme, .app-intro-list .app-intro-phptheme {
+  margin-bottom: 20px!important;
+  background: #fafafa!important;
+  border-radius: 5px!important;
+}
+.page-client .index-box .index-app-header-list li{
+  padding-bottom: 10px!important;
+}
+.page-client .page-with-sidebar .content {
+  -ms-flex-preferred-size: 70%!important;
+  flex-basis: 70%!important;
+}
+@media screen and (min-width: 1600px) {
+  .page-client .page-with-sidebar .content{
+    padding-right:15%;
+  }
+}
+.page-client .app-intro-list .app-theme-image img {
+  border-radius: 3px!important;
+}
+.page-client .index-box .index-app-header-list {
+  margin-bottom: 20px!important;
+  border-bottom: 2px solid #eee!important;
+}
+.page-client .app-intro-list .app-intro-aspplugin:hover, .page-client .app-intro-list .app-intro-phpplugin:hover {
+  border-radius: 5px!important;
+  background: #fff!important;
+  box-shadow: 0 5px 20px 0 #ddd!important;
+}
+.page-client .app-intro-list .app-intro-aspplugin, .page-client .app-intro-list .app-intro-phpplugin {
+  border-radius: 5px!important;
+}
+.button-dependency-app{
+  background-color: #70bd70!important;
+  border-radius: 3px!important;
+}
+.app-intro-list .app-intro-aspplugin .app-container .app-plugin-image img, .app-intro-list .app-intro-phpplugin .app-container .app-plugin-image img {
+  border-radius: 5px!important;
+}
+.page-client .button, .page-client a.link-button {
+  background: #3a6ea5!important;
+  padding: 8px 15px!important;
+  border-radius: 3px!important;
+  border: none!important;
+}
+.page-client .sitemap{
+  padding-left: 10px!important;
+  padding-top: 30px!important;
+}
+.page-client .button:hover, .page-client a.link-button:hover {
+  background: #6390e8!important;
+}
+.app-content .app-content-data .tabs {
+  border-top: 1px solid #ddd!important;
+  border-bottom:none!important;
+}
+strong.FavoritesButton, strong.WorkOrderButton, strong.WorkOrderWarningButton {
+  border-radius: 3px!important;
+}
+#tab-buy-info p {
+  line-height: 2!important;
+}
+.app-content .app-content-data .tabs li a:focus, .app-content .app-content-data .tabs li a:hover {
+  border-bottom:none!important;
+}
+.app-content .app-content-data .tabs li a, .app-content .app-content-data .tabs li.on a {
+  height: 39px!important;
+  color: #333 !important;
+}
+.app-plugin-content p, .app-intro-list .app-theme-title p {
+  color:#757c84!important;
+}
+.app-intro-list .app-theme-title p {
+  margin-bottom: 10px!important;
+}
+.app-theme-title h3 {
+  margin: 1em 0 .5em 0!important;
+}
+.app-intro-list .app-intro-aspplugin .app-container .price, .app-intro-list .app-intro-phpplugin .app-container .price {
+  background: none!important;
+}
+.page-client #divCatalog ul li::before {
+  color: #3d69aa!important;
+}
+.misc-return-top-wrapper {
+  display: none!important;
+}
+.circle-content .app-container .app-circle-download {
+  font-size: 1em!important;
+}
+.circle-content {
+  border: 1px solid #eee!important;
+}
+.circle-info-with-comment {
+  margin-bottom: 10px!important;
+}
+.page-client .page-with-sidebar .sidebar {
+  margin-right: 20px!important;
+  width: 220px!important;
+}
+.app-content .app-content-header .app-header-image .app-header-image-img {
+  border: 1px solid #eee!important;
+  padding: 0!important;
+  border-radius: 5px!important;
+}
+.app-content .app-content-header .app-header-detail .app-download em {
+  border-radius: 3px!important;
+  padding: 7px 10px!important;
+  margin-left: 5px!important;
+}
+.app-content .app-content-header .app-header-detail h3 {
+  color:#333!important;
+  text-align: left!important;
+  padding-top: 10px!important;
+}
+.page-with-sidebar .content h2 {
+  margin-left: 0!important;
+}
+.circle-info-with-comment .app-container, .circle-info .app-container {
+  padding: 1em!important;
+}
+/*override /zb_system/css/jquery-ui.custom.css*/
+.ui-datepicker-calendar .ui-state-default{
+  text-align: center;
+}
+#ui-datepicker-div{
+  left:auto!important;
+  position: fixed!important;
+  top: 50% !important;
+  left: 50% !important;
+  border-radius: 8px!important;
+  transform: translate(-50%, -50%) !important;  
+}
+#ui-datepicker-div table{
+  box-shadow: none !important;
+}
+.ui-datepicker{
+  padding:.5em!important;
+}
+.ui-widget.ui-widget-content {
+  border: none!important;
+  box-shadow: 1px 12px 62px 0 rgba(0, 0, 0, .2) !important;
+}
+.ui-slider-horizontal.ui-widget-content{
+  box-shadow:none!important;
+  background: #f1f2f4;
+}
+.ui-datepicker{
+  z-index: 99999999!important;
+}
+.ui-widget-header {
+  line-height: 1.8!important;
+}
+.ui-widget-header, .ui-widget-content {
+  border: none!important;
+}
+.ui-dialog .ui-dialog-content {
+  padding: 2em 0 .5em 1em!important;
+}
+/*override /zb_users/plugin/LinksManage/var/style.css*/
+.ui-sortable-handle .fisrt input{
+  width: auto!important;
+}
+/*mobile icon & overlay*/
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.overlay.active {
+  display: block;
+}
+.menu-icon {
+  display: none;
+}
+/*toTop*/
+.toptop{
+  position: fixed;
+  bottom: 50px;
+  right:20px;
+  z-index: 999;
+  width: 50px;
+  height:50px;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 8px 22px 0 rgba(0, 0, 0, .2);
+  cursor: pointer;
+  transition: opacity 0.5s,
+  visibility 0.5s;
+  opacity: .9;
+  visibility: visible;
+  backdrop-filter: blur(10px);
+}
+.toptop i{
+  font-size: 40px;
+  text-align: center;
+  width: inherit;
+  height: inherit;
+  line-height: 50px;
+  display: block;
+  color: #333;
+}
+.toptop.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+/*responsive*/
+@media screen and (max-width: 1300px) {
+  .header .userbtn .z-blog{
+    display: none;
+  }
+}
+@media screen and (max-width: 992px) {
+  body {
+    font-size: 14px!important;
+  }
+  .editmod3{
+    width:100%;
+  }
+  #editor_content .edui-editor-iframeholder img{
+    max-width: 100%;
+  }
+  /*手机端编辑器【传图-地图-传视频】宽度调整和细节优化*/
+  #edui114_content,
+  #edui124_body,#edui124_iframe,#edui124_iframe #wrapper,
+  #edui137_body,#edui137_iframe{
+    max-width: 350px !important;
+  }
+  /*下面细节调节样式不生效，原因未知*/
+  /*#preview{*/
+  /*  width: 100px !important;*/
+  /*  height: 100px!important;*/
+  /*}*/
+  /*#upload .filelist li,#upload .filelist li.filePickerBlock{*/
+  /*  width: 30%!important;*/
+  /*  height:100px!important;*/
+  /*}*/
+  /*#upload .statusBar .info{*/
+  /*  font-size: 12px!important;*/
+  /*}*/
+  /*#upload .statusBar .btns .webuploader-pick, #upload .statusBar .btns .uploadBtn, #upload .statusBar .btns .uploadBtn.state-uploading, #upload .statusBar .btns .uploadBtn.state-paused{*/
+  /*  padding: 0 8px!important;*/
+  /*}*/
+  
+  .boxfloat{
+    position: static!important;
+  }
+  .header {
+    position: relative;
+    z-index: 9999999;
+  }
+  .header .user {
+    margin-top: 330px;
+    width: 100%;
+    z-index: 99999;
+    position: static;
+    flex: 1;
+    margin-right: 20px;
+  }
+  aside.left, .header .menu, .header .user, .userbtn .z-blog {
+    display: none;
+  }
+  .header .logo, .logo img {
+    width: 9rem;
+    height:64px;
+  }
+  .menu-icon {
+    right:70px;
+  }
+  .quick-menu-icon {
+    right:0;
+  }
+  .menu-icon, .quick-menu-icon {
+    display: block;
+    cursor: pointer;
+    width:64px;
+    height:64px;
+    text-align: center;
+    padding-top:18px;
+    position: absolute;
+  }
+  .menu-icon i, .quick-menu-icon i {
+    font-size: 24px;
+    color: #3d69aa;
+  }
+  .header .menu {
+    height: 180px;
+    width: 100%;
+    z-index: 9999;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    border-top: 1px solid #eee;
+    background: #f1f2f4;
+  }
+  #topmenu {
+    height: 90px;
+    width: 100%;
+    display: block;
+    padding: 20px;
+    overflow-x: scroll;
+    background: #fff;
+    position: relative;
+    display: flex;
+    white-space: nowrap;
+  }
+  #topmenu li {
+    margin: 0 10px 10px 0;
+    box-sizing: border-box;
+    height: 50px;
+    overflow: hidden;
+    line-height: 50px;
+    flex: 0 0 auto;
+  }
+  #topmenu li a {
+    width: 100%;
+  }
+  body.menu-open {
+    overflow: hidden;
+  }
+  .header .user{
+    position: static;
+  }
+  .header .user .decoration{
+    position: absolute;
+    top: calc(64px + 90px + 15px);
+    left: 20px;
+    /*transform: rotate(30deg);*/
+    overflow: hidden;
+    /*filter: drop-shadow(5px 5px 30px rgba(0, 0, 0, .2));*/
+    /*animation: spin 5s linear infinite;*/
+  }
+  .header .user .decoration i{
+    font-size: 60px;
+    color: #fff;
+  }
+   
+  .left.active {
+    display: block;
+    z-index: 9999;
+    background-color: #f1f2f4;
+    height: calc(100% + 64px);
+    top: 64px;
+    left: 0;
+    overflow-y: auto;
+  }
+  .left.active #leftmenu {
+    height: calc(100% + 50px);
+  }
+  
+  .main {
+    padding-left: 0;
+    padding:0 10px;
+  }
+  #tbUpdateInfo, #thankslist {
+    box-sizing: border-box;
+    width: 100%;
+  }
+  #tbUpdateInfo {
+    margin-right: 0;
+  }
+  #tbStatistic .td20 {
+    width: 20%;
+  }
+  #tbStatistic .td30 {
+    width: 30%;
+  }
+  #thankslist .td20 {
+    width: 20%;
+  }
+  .main > #divMain > div[class^="divHeader"], .main > #divMain2 > div[class^="divHeader"] {
+    margin-top: 0;
+  }
+  #tbUpdateInfo p {
+    line-height: 1.5;
+    padding: 7px 15px;
+  }
+  
+  #divBox, #divEditRight, #divFloat, #btnPost,
+  .widget-left,.siderbar-list,.siderbar-list,.siderbar-drop,.siderbar-sort-list,
+  .widget-list-note, .siderbar-note,.siderbar-sort-list .widget,.siderbar-sort-list,
+  #divEditRight .editmod > select, #divEditRight .editmod > input[type="text"] {
+    width: 100%;
+  }
+  .widget{
+    width:calc(100% - 2*20px);
+  }
+  .siderbar-sort-list .widget{
+    width:calc(100% - 2*4px);
+  }
+  #divMain2{
+    min-width: auto!important;
+  }
+  .SubMenu{
+    margin-bottom:0;
+  }
+  .widget-left{
+    margin-right:0;
+    float: none;
+    clear: none;
+  }
+  .widget-list {
+    min-width: auto;
+    margin-right: 0;
+  }
+  .siderbar-list{
+    float: none;
+    margin-top: 20px;
+  }
+  .siderbar-drop{
+    margin:0;
+  }
+  #divEditRight {
+    margin-left: 0;
+    text-align: left;
+  }
+  .editmod2 {
+    padding-right: 0;
+  }
+  #ui-datepicker-div{
+    z-index: 99999!important;
+  }
+  .divHeader {
+    font-size: 1.2em;
+  }
+  #divMain2 #search select.edit{
+    width: 18%!important;
+    vertical-align: middle;
+  }
+  #divMain2 #search input[name="search"],
+  #divMain2 form.search input[name="search"]{
+    width: 50%!important;
+    vertical-align: middle;
+  }
+  #divMain2 #search input[type="checkbox"]{
+    
+  }
+  /* 评论管理底部的无钩子浮动处理*/
+  form p {
+    float: none !important;
+    padding-bottom: 0;
+  }
+  #divMain2 #search input[type="submit"],
+  #divMain2 form.search input[type="submit"]{
+    /*margin-left: -10px;*/
+  }
+  #divMain2 #search input.button{
+    width: 20%!important;
+  }
+  
+  #divMain table{
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+    -webkit-text-size-adjust: none/*解决ios设置white-space: nowrap后表格字体莫名变大*/
+  }
+  #divMain table th,
+  #divMain table td{
+    font-size: 14px;
+    padding-left:15px;
+    padding-right:20px;
+    white-space: nowrap;/*核心*/
+  }
+  #divMain table th{
+    padding-left:12px;
+  }
+  #divMain .tab-content table td{
+    white-space: normal;
+  }
+  #divMain .tab-content table td input,
+  #divMain .tab-content table textarea{
+    width: 100%!important;
+  }
+  .page-footer {
+    padding-left: 0 !important;
+  }
+  #divMain form{
+    overflow-x: auto;
+    box-sizing: border-box;
+  }
+  #frmTheme div.theme {
+    width: calc(50% - 5px);
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  #frmTheme div.theme:nth-child(2n+1) {
+    margin-right: 0;
+  }
+  form#frmTheme .theme:nth-child(5n+3) {
+    margin-right: 10px;
+  }
+  #frmTheme div.theme-img span {
+    height: 15vh;
+  }
+  #frmTheme div.theme i[class^="icon-"]{
+    font-size: 12px!important;
+  }
+  .ui-dialog{
+    width: calc(100% - 2*10px)!important;
+    left: 10px!important;
+  }
+  /*jq ui拖拽在移动端的毛病，添加了一则温馨提示*/
+  .widget-list-note:after{
+    content: 'jQueryUI库的拖拽在移动端不太行，也会影响滑动，请触摸空白处滑动页面';
+    color:#e14f4f;
+  }
+  #divMain input[type="text"], #divMain select, #divMain textarea, form.search input[type="file"] {
+    width: 100%;
+  }
+  #divMain textarea{
+    width: 100%!important;
+  }
+  .page-client #divComments.sidebar-item{
+    margin-bottom: 0!important;
+  }
+  .page-client .circle-info,.page-client .circle-info-with-comment{
+    margin-bottom:10px!important;
+  }
+  .circle-content .app-container .app-circle-download {
+    margin: 0 0 1em 0!important;
+  }
+  .app-content .app-content-data .contents{
+    padding:30px 0!important;
+  }
+  .app-intro-list .app-intro-asptheme, .app-intro-list .app-intro-phptheme {
+    margin-bottom: 10px !important;
+  }
+  .page-client .app-content .app-content-header{
+    flex-wrap: wrap!important;
+  }
+  .app-content-asptheme .app-header-image img, .app-content-phptheme .app-header-image img {
+    width: 100%!important;
+    height: 100%!important;
+  }
+  .app-intro-list .app-intro-aspplugin, .app-intro-list .app-intro-phpplugin{
+    width: 90%!important;
+    margin-right: 0!important;
+  }
+  .app-content .app-content-header .app-header-detail {
+    margin: 0 1em 0 1em!important;
+  }
+  .app-content .app-content-data .tabs{
+    margin-top: 20px!important;
+  }
+  .app-content .app-content-data .tabs li a{
+    margin: 0!important;
+    padding: 0 10px!important;
+  }
+  .app-content .app-content-data .contents{
+    padding: 10px!important;
+    margin-top: 10px!important;
+  }
+  .app-content .app-content-data .contents p{
+    padding-bottom: 5px!important;
+  }
+  .app-content-aspplugin .app-header-image, .app-content-phpplugin .app-header-image{
+    text-align:center!important;
+    padding-top: 20px!important;
+  }
+  .page-client .sitemap{
+    padding-left: 0px!important;
+  }
+  div.hint {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    transform:none;
+    margin-top: calc(64px + 0px);
+  }
+  div.hint p{
+    line-height: 2.5em;
+    opacity: .95;
+    border-radius: 0;
+    text-align: center;
+    border: none;
+  }
+  div.hint p.hint_good, div.hint p.hint_succeed,
+  div.hint p.hint_good a, div.hint p.hint_succeed a,
+  div.hint p.hint_tips,
+  div.hint p.hint_bad, div.hint p.hint_failed{
+    border-left:none;
+  }
+  input.edit{
+    width: 100%;
+  }
+  .toptop{
+    right:10px;
+  }
+  .app-download > .FavoritesButton{
+    clear: none!important;
+  }
+}
+
+

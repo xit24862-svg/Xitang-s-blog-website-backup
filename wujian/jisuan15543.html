@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>赛博朋克学分绩计算器</title>
+  <style>
+    :root {
+      --bg1: #05040c;
+      --bg2: #111226;
+      --neon-cyan: #31f0ff;
+      --neon-pink: #ff2ea6;
+      --neon-blue: #4f63ff;
+      --text: #e6edff;
+      --card: rgba(10, 14, 34, 0.72);
+      --line: rgba(106, 126, 255, 0.32);
+      --good: #80ffcf;
+      --warn: #ffd580;
+      --all: #ff9ce1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 12% 10%, rgba(49, 240, 255, 0.22), transparent 60%),
+        radial-gradient(900px 600px at 90% 85%, rgba(255, 46, 166, 0.18), transparent 65%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1060px;
+      margin: 32px auto;
+      padding: 20px;
+    }
+
+    .title {
+      margin: 0 0 8px;
+      font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+      letter-spacing: 1px;
+      color: #eaffff;
+      text-shadow: 0 0 12px rgba(49, 240, 255, 0.5), 0 0 28px rgba(79, 99, 255, 0.35);
+    }
+
+    .subtitle {
+      margin: 0 0 22px;
+      opacity: 0.88;
+      font-size: 0.97rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 14px 44px rgba(6, 10, 25, 0.65), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(3px);
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+
+    .music-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid rgba(49, 240, 255, 0.5);
+      background: linear-gradient(135deg, rgba(49, 240, 255, 0.16), rgba(255, 46, 166, 0.16));
+      color: #eef8ff;
+      padding: 9px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+      font-weight: 600;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 46, 166, 0.68);
+      box-shadow: 0 0 16px rgba(255, 46, 166, 0.42);
+    }
+
+    .btn-danger {
+      border-color: rgba(255, 100, 140, 0.58);
+      background: linear-gradient(135deg, rgba(255, 80, 130, 0.2), rgba(90, 110, 255, 0.2));
+    }
+
+    .status {
+      font-size: 0.92rem;
+      opacity: 0.9;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 0.7fr 0.7fr 0.7fr auto;
+      gap: 10px;
+      align-items: end;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field label {
+      font-size: 0.85rem;
+      opacity: 0.88;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 9px 10px;
+      border: 1px solid rgba(120, 140, 255, 0.42);
+      border-radius: 9px;
+      background: rgba(5, 10, 27, 0.78);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: rgba(49, 240, 255, 0.8);
+      box-shadow: 0 0 0 3px rgba(49, 240, 255, 0.18);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 10px 8px;
+      background: rgba(79, 99, 255, 0.17);
+      border-bottom: 1px solid rgba(130, 150, 255, 0.35);
+    }
+
+    tbody td {
+      padding: 10px 8px;
+      border-bottom: 1px solid rgba(130, 150, 255, 0.18);
+    }
+
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .type-chip {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      border: 1px solid transparent;
+    }
+
+    .t-required { color: #7ff9ff; border-color: rgba(49, 240, 255, 0.5); }
+    .t-limited { color: #ffc4f5; border-color: rgba(255, 46, 166, 0.5); }
+    .t-elective { color: #c9d0ff; border-color: rgba(130, 150, 255, 0.45); }
+
+    .results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .result-item {
+      border: 1px solid rgba(130, 150, 255, 0.35);
+      border-radius: 11px;
+      padding: 14px;
+      background: rgba(9, 14, 30, 0.78);
+    }
+
+    .result-title {
+      margin: 0 0 8px;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .result-value {
+      margin: 0;
+      font-size: clamp(1.35rem, 2.7vw, 1.9rem);
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+
+    .r1 { color: var(--good); }
+    .r2 { color: var(--warn); }
+    .r3 { color: var(--all); }
+
+    .empty-tip {
+      margin-top: 8px;
+      opacity: 0.74;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 920px) {
+      .form-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .results {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        margin: 18px auto;
+        padding: 12px;
+      }
+      table {
+        font-size: 0.88rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1 class="title">赛博朋克平均学分绩计算器</h1>
+    <p class="subtitle">录入课程后，按公式（成绩-50）×0.1×学分 计算 3 组平均学分绩：必修、必修+限选、全部课程。</p>
+
+    <section class="card">
+      <div class="music-wrap">
+        <button class="btn" id="musicBtn" type="button">播放背景音乐</button>
+        <span class="status" id="musicStatus">音乐文件：Corgwork Core.mp3</span>
+      </div>
+      <audio id="bgm" preload="auto">
+        <source src="core.mp3" type="audio/mpeg">
+        你的浏览器不支持音频播放。
+      </audio>
+    </section>
+
+    <section class="card">
+      <form id="courseForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="courseName">学科名称</label>
+            <input id="courseName" required placeholder="例如：高等数学">
+          </div>
+          <div class="field">
+            <label for="courseCredit">学分</label>
+            <input id="courseCredit" required type="number" step="0.5" min="0" placeholder="例如：3">
+          </div>
+          <div class="field">
+            <label for="courseScore">课程成绩</label>
+            <input id="courseScore" required type="number" step="0.1" min="0" max="100" placeholder="例如：88">
+          </div>
+          <div class="field">
+            <label for="courseType">学科性质</label>
+            <select id="courseType">
+              <option value="required">必修</option>
+              <option value="limited">限选</option>
+              <option value="elective">选修</option>
+            </select>
+          </div>
+          <button class="btn" type="submit">添加课程</button>
+        </div>
+      </form>
+      <p class="empty-tip" id="emptyTip">当前还没有课程数据。</p>
+    </section>
+
+    <section class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>学科名称</th>
+            <th>学分</th>
+            <th>成绩</th>
+            <th>性质</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="courseTableBody"></tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <div class="results">
+        <article class="result-item">
+          <p class="result-title">必修平均绩点</p>
+          <p class="result-value r1" id="resRequired">0.000</p>
+        </article>
+        <article class="result-item">
+          <p class="result-title">必修 + 限选平均绩点</p>
+          <p class="result-value r2" id="resReqLimited">0.000</p>
+        </article>
+        <article class="result-item">
+          <p class="result-title">全部课程平均绩点</p>
+          <p class="result-value r3" id="resAll">0.000</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("courseForm");
+    const nameInput = document.getElementById("courseName");
+    const creditInput = document.getElementById("courseCredit");
+    const scoreInput = document.getElementById("courseScore");
+    const typeInput = document.getElementById("courseType");
+    const tbody = document.getElementById("courseTableBody");
+    const emptyTip = document.getElementById("emptyTip");
+
+    const resRequired = document.getElementById("resRequired");
+    const resReqLimited = document.getElementById("resReqLimited");
+    const resAll = document.getElementById("resAll");
+
+    const bgm = document.getElementById("bgm");
+    const musicBtn = document.getElementById("musicBtn");
+    const musicStatus = document.getElementById("musicStatus");
+
+    const courses = [];
+
+    const typeMap = {
+      required: { label: "必修", className: "t-required" },
+      limited: { label: "限选", className: "t-limited" },
+      elective: { label: "选修", className: "t-elective" }
+    };
+
+    function weightedAverage(filterFn) {
+      let totalCredit = 0;
+      let totalValue = 0;
+      courses.filter(filterFn).forEach((item) => {
+        totalCredit += item.credit;
+        totalValue += (item.score - 50) * 0.1 * item.credit;
+      });
+      if (totalCredit === 0) return 0;
+      return totalValue / totalCredit;
+    }
+
+    function formatNum(num) {
+      return Number.isFinite(num) ? num.toFixed(3) : "0.000";
+    }
+
+    function recalc() {
+      resRequired.textContent = formatNum(weightedAverage((c) => c.type === "required"));
+      resReqLimited.textContent = formatNum(weightedAverage((c) => c.type === "required" || c.type === "limited"));
+      resAll.textContent = formatNum(weightedAverage(() => true));
+      emptyTip.style.display = courses.length ? "none" : "block";
+    }
+
+    function renderTable() {
+      tbody.innerHTML = "";
+      courses.forEach((course, idx) => {
+        const tr = document.createElement("tr");
+        const t = typeMap[course.type];
+        tr.innerHTML = `
+          <td>${course.name}</td>
+          <td>${course.credit}</td>
+          <td>${course.score.toFixed(1)}</td>
+          <td><span class="type-chip ${t.className}">${t.label}</span></td>
+          <td><button class="btn btn-danger" type="button" data-idx="${idx}">删除</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+      recalc();
+    }
+
+    tbody.addEventListener("click", (e) => {
+      const target = e.target;
+      if (target.tagName !== "BUTTON") return;
+      const idx = Number(target.dataset.idx);
+      if (!Number.isInteger(idx)) return;
+      courses.splice(idx, 1);
+      renderTable();
+    });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = nameInput.value.trim();
+      const credit = Number(creditInput.value);
+      const score = Number(scoreInput.value);
+      const type = typeInput.value;
+
+      if (!name || !Number.isFinite(credit) || credit <= 0 || !Number.isFinite(score) || score < 0 || score > 100) {
+        alert("请填写有效的课程信息。");
+        return;
+      }
+
+      courses.push({ name, credit, score, type });
+      form.reset();
+      typeInput.value = "required";
+      renderTable();
+    });
+
+    musicBtn.addEventListener("click", async () => {
+      try {
+        if (bgm.paused) {
+          await bgm.play();
+          musicBtn.textContent = "暂停背景音乐";
+          musicStatus.textContent = "正在播放：Corgwork Core.mp3";
+        } else {
+          bgm.pause();
+          musicBtn.textContent = "播放背景音乐";
+          musicStatus.textContent = "已暂停：Corgwork Core.mp3";
+        }
+      } catch (err) {
+        musicStatus.textContent = "播放失败：请确认同目录下存在 Corgwork Core.mp3";
+      }
+    });
+  </script>
+</body>
+</html>

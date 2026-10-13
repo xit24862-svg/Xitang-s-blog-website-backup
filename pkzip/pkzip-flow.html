@@ -1,0 +1,1041 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PKZIP 算法流程图（动态演示）</title>
+  <style>
+    :root {
+      --bg-1: #071b24;
+      --bg-2: #102f3d;
+      --bg-3: #d7a441;
+      --panel: rgba(9, 24, 33, 0.8);
+      --panel-border: rgba(215, 164, 65, 0.35);
+      --text-main: #f6f7f2;
+      --text-sub: #c3cfca;
+      --accent: #f7b845;
+      --accent-2: #61d4b3;
+      --danger: #f26f63;
+      --node-bg: rgba(255, 255, 255, 0.06);
+      --node-border: rgba(255, 255, 255, 0.22);
+      --edge: rgba(255, 255, 255, 0.25);
+      --edge-active: #f7b845;
+      --shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text-main);
+      font-family: "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei UI", sans-serif;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(247, 184, 69, 0.18), transparent 40%),
+        radial-gradient(circle at 88% 83%, rgba(97, 212, 179, 0.16), transparent 36%),
+        linear-gradient(130deg, var(--bg-1), var(--bg-2) 55%, #13394a);
+      min-height: 100vh;
+      line-height: 1.45;
+    }
+
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: radial-gradient(circle at 50% 35%, black, transparent 85%);
+      opacity: 0.4;
+    }
+
+    .app {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 28px 20px 40px;
+    }
+
+    .headline {
+      margin-bottom: 16px;
+    }
+
+    .headline h1 {
+      margin: 0 0 6px;
+      font-size: clamp(1.4rem, 2.6vw, 2.25rem);
+      letter-spacing: 0.03em;
+      font-family: "YouYuan", "STKaiti", "KaiTi", serif;
+      font-weight: 700;
+    }
+
+    .headline p {
+      margin: 0;
+      color: var(--text-sub);
+      max-width: 920px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(740px, 1fr) 340px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(4px);
+    }
+
+    .controls {
+      padding: 14px 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 12px;
+      margin-bottom: 12px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .field label {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+    }
+
+    .field input[type="text"] {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.94rem;
+    }
+
+    .field input[type="text"]:focus {
+      outline: none;
+      border-color: rgba(247, 184, 69, 0.7);
+      box-shadow: 0 0 0 2px rgba(247, 184, 69, 0.2);
+    }
+
+    .field.speed-wrap {
+      grid-column: 1 / 3;
+    }
+
+    .speed-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .speed-row input {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    .speed-value {
+      font-size: 0.84rem;
+      color: var(--accent);
+      min-width: 72px;
+      text-align: right;
+      font-family: "Consolas", "Courier New", monospace;
+    }
+
+    .btn-row {
+      grid-column: 1 / 3;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-top: 2px;
+    }
+
+    button {
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 8px 14px;
+      color: #11222b;
+      background: var(--accent);
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+    }
+
+    button:hover {
+      filter: brightness(1.04);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2);
+    }
+
+    button:disabled {
+      opacity: 0.46;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+      filter: none;
+    }
+
+    button.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    button.warn {
+      background: rgba(242, 111, 99, 0.2);
+      color: #ffd6cf;
+      border-color: rgba(242, 111, 99, 0.4);
+    }
+
+    .diagram-wrap {
+      position: relative;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow: hidden;
+      background:
+        linear-gradient(165deg, rgba(247, 184, 69, 0.08), transparent 34%),
+        linear-gradient(15deg, rgba(97, 212, 179, 0.08), transparent 40%),
+        var(--panel);
+    }
+
+    .diagram-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .diagram-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: #e8f3ee;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      padding: 6px 10px;
+      letter-spacing: 0.01em;
+    }
+
+    .diagram-chip b {
+      color: var(--accent);
+      font-family: "Consolas", "Courier New", monospace;
+      font-weight: 700;
+    }
+
+    .tool-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .tool-btn {
+      padding: 6px 10px;
+      font-size: 0.82rem;
+      min-width: 42px;
+    }
+
+    .tool-btn.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .tool-btn.primary {
+      color: #10252f;
+    }
+
+    .diagram-viewport {
+      --flow-scale: 1;
+      position: relative;
+      overflow: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background:
+        radial-gradient(circle at 88% 20%, rgba(247, 184, 69, 0.12), transparent 35%),
+        radial-gradient(circle at 8% 88%, rgba(97, 212, 179, 0.1), transparent 33%),
+        rgba(6, 16, 23, 0.8);
+      min-height: 670px;
+    }
+
+    .diagram-canvas {
+      width: calc(760px * var(--flow-scale));
+      height: calc(650px * var(--flow-scale));
+      margin: 10px auto 12px;
+      transition: width 0.22s ease, height 0.22s ease;
+    }
+
+    .diagram {
+      position: relative;
+      width: 760px;
+      height: 650px;
+      border-radius: 14px;
+      background:
+        linear-gradient(to bottom right, rgba(255, 255, 255, 0.06), transparent 30%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        rgba(8, 20, 28, 0.64);
+      background-size: auto, 24px 24px, 24px 24px, auto;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      overflow: hidden;
+      transform: scale(var(--flow-scale));
+      transform-origin: top left;
+      transition: transform 0.22s ease;
+      box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.22), 0 18px 40px rgba(0, 0, 0, 0.26);
+    }
+
+    #edgeLayer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .edge-line {
+      stroke: var(--edge);
+      stroke-width: 2.2;
+      fill: none;
+      transition: stroke 0.24s ease, stroke-width 0.24s ease, filter 0.24s ease;
+    }
+
+    .edge-line.active {
+      stroke: var(--edge-active);
+      stroke-width: 3.2;
+      filter: drop-shadow(0 0 6px rgba(247, 184, 69, 0.7));
+    }
+
+    .node {
+      position: absolute;
+      width: 220px;
+      min-height: 68px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: var(--node-bg);
+      border: 1px solid var(--node-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.94rem;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .node:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+      background: rgba(255, 255, 255, 0.11);
+    }
+
+    .node.active {
+      border-color: rgba(247, 184, 69, 0.9);
+      box-shadow: 0 0 0 3px rgba(247, 184, 69, 0.3), 0 12px 20px rgba(0, 0, 0, 0.25);
+      background: rgba(247, 184, 69, 0.18);
+      animation: nodePulse 0.9s ease;
+    }
+
+    @keyframes nodePulse {
+      0% {
+        transform: scale(0.98);
+        filter: brightness(0.96);
+      }
+      100% {
+        transform: scale(1);
+        filter: brightness(1);
+      }
+    }
+
+    .node small {
+      display: block;
+      margin-top: 3px;
+      color: #d9e2df;
+      opacity: 0.86;
+      font-size: 0.74rem;
+    }
+
+    .n-init { left: 270px; top: 36px; }
+    .n-load { left: 70px; top: 170px; }
+    .n-gen { left: 470px; top: 170px; }
+    .n-xor { left: 470px; top: 274px; }
+    .n-update { left: 470px; top: 380px; }
+    .n-check { left: 70px; top: 380px; }
+    .n-finish { left: 270px; top: 520px; }
+
+    .hover-card {
+      position: absolute;
+      width: 258px;
+      background: rgba(7, 16, 22, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-left: 3px solid var(--accent-2);
+      border-radius: 10px;
+      padding: 10px;
+      color: #edf3f0;
+      box-shadow: var(--shadow);
+      z-index: 3;
+      display: none;
+      pointer-events: auto;
+    }
+
+    .hover-card.visible {
+      display: block;
+    }
+
+    .hover-card h4 {
+      margin: 0 0 4px;
+      font-size: 0.9rem;
+    }
+
+    .hover-card p {
+      margin: 0;
+      font-size: 0.82rem;
+      color: var(--text-sub);
+    }
+
+    .hover-card .fn-link {
+      color: #ffe29b;
+      font-family: "Consolas", "Courier New", monospace;
+      background: rgba(247, 184, 69, 0.14);
+      border: 1px solid rgba(247, 184, 69, 0.35);
+      border-radius: 6px;
+      padding: 0 4px;
+      cursor: help;
+      white-space: nowrap;
+    }
+
+    .code-peek {
+      position: fixed;
+      z-index: 50;
+      display: none;
+      max-width: 440px;
+      min-width: 330px;
+      border-radius: 12px;
+      border: 1px solid rgba(247, 184, 69, 0.45);
+      background: rgba(8, 16, 23, 0.96);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      padding: 10px 12px;
+      pointer-events: auto;
+    }
+
+    .code-peek.visible {
+      display: block;
+    }
+
+    .code-peek h5 {
+      margin: 0 0 7px;
+      font-size: 0.84rem;
+      color: #ffe5b0;
+      letter-spacing: 0.01em;
+    }
+
+    .code-peek pre {
+      margin: 0;
+      padding: 9px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #deecf2;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      overflow: auto;
+      white-space: pre;
+    }
+
+    .diagram-wrap:fullscreen {
+      width: 100vw;
+      height: 100vh;
+      max-width: none;
+      margin: 0;
+      border-radius: 0;
+      border: 0;
+      padding: 14px;
+    }
+
+    .diagram-wrap:fullscreen .diagram-toolbar {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .diagram-wrap:fullscreen .diagram-viewport {
+      flex: 1;
+      min-height: 0;
+    }
+
+    .diagram-wrap:fullscreen .diagram-canvas {
+      margin-top: 18px;
+    }
+
+    .side {
+      display: grid;
+      gap: 12px;
+      position: sticky;
+      top: 16px;
+    }
+
+    .side-panel {
+      padding: 12px 14px;
+    }
+
+    .side-panel h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .muted {
+      color: var(--text-sub);
+      font-size: 0.9rem;
+    }
+
+    .module-body {
+      font-size: 0.9rem;
+      color: #e9f0eb;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 10px;
+      padding: 10px;
+      min-height: 86px;
+      white-space: pre-wrap;
+    }
+
+    .kv {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+      font-family: "Consolas", "Courier New", monospace;
+      font-size: 0.85rem;
+    }
+
+    .kv:last-child {
+      border-bottom: 0;
+    }
+
+    .kv span:first-child {
+      color: var(--text-sub);
+      font-family: "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei UI", sans-serif;
+    }
+
+    .cipher-box {
+      margin-top: 8px;
+      font-family: "Consolas", "Courier New", monospace;
+      font-size: 0.82rem;
+      color: #f7f7f0;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+      border: 1px dashed rgba(255, 255, 255, 0.16);
+      padding: 8px;
+      min-height: 64px;
+      word-break: break-all;
+    }
+
+    .legend {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text-sub);
+      font-size: 0.88rem;
+    }
+
+    .legend li {
+      margin-bottom: 5px;
+    }
+
+    @media (max-width: 1120px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .side {
+        position: static;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .field.speed-wrap,
+      .btn-row {
+        grid-column: 1 / 2;
+      }
+
+      .diagram-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .tool-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+  <main class="app">
+    <header class="headline">
+      <h1>PKZIP 算法动态流程图（展示版）</h1>
+      <p>当前页面为纯流程图展示，不包含模拟运行。悬浮节点可查看具体说明，悬浮 `crc32(...)` 可查看内部实现。</p>
+    </header>
+
+    <div class="layout">
+      <section>
+        <div class="panel diagram-wrap" id="diagramPanel">
+          <div class="diagram-toolbar">
+            <div class="diagram-chip">流程图视图比例 <b id="zoomPct">100%</b></div>
+            <div class="tool-actions">
+              <button class="secondary tool-btn" id="btnZoomOut" title="缩小">-</button>
+              <button class="secondary tool-btn" id="btnZoomIn" title="放大">+</button>
+              <button class="secondary tool-btn" id="btnZoomReset" title="重置">100%</button>
+              <button class="tool-btn primary" id="btnFullscreen" title="全屏显示">全屏放大</button>
+            </div>
+          </div>
+
+          <div class="diagram-viewport" id="diagramViewport">
+            <div class="diagram-canvas">
+              <div class="diagram" id="diagram">
+                <svg id="edgeLayer" viewBox="0 0 760 650" preserveAspectRatio="none">
+                  <defs>
+                    <marker id="arrowHead" viewBox="0 0 10 10" refX="8.4" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+                      <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(255,255,255,0.42)"></path>
+                    </marker>
+                    <marker id="arrowHeadActive" viewBox="0 0 10 10" refX="8.4" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+                      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f7b845"></path>
+                    </marker>
+                  </defs>
+                  <g id="edgeGroup"></g>
+                </svg>
+
+                <div class="node n-init" data-node="init">
+                  1. 初始化 3 个 32 位内部状态
+                  <small>key0 / key1 / key2</small>
+                </div>
+                <div class="node n-load" data-node="load">
+                  2. 读取下一个明文字节
+                  <small>逐字节循环入口</small>
+                </div>
+                <div class="node n-gen" data-node="gen">
+                  3. 生成伪随机字节
+                  <small>由当前内部状态推导</small>
+                </div>
+                <div class="node n-xor" data-node="xor">
+                  4. 异或得到密文字节
+                  <small>明文 XOR 伪随机 = 密文</small>
+                </div>
+                <div class="node n-update" data-node="update">
+                  5. 用明文字节更新内部状态
+                  <small>驱动下一轮</small>
+                </div>
+                <div class="node n-check" data-node="check">
+                  6. 判断是否还有字节
+                  <small>有则循环，无则结束</small>
+                </div>
+                <div class="node n-finish" data-node="finish">
+                  7. 输出完整密文
+                  <small>流程终点</small>
+                </div>
+
+                <div id="hoverCard" class="hover-card" aria-live="polite"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="side">
+        <section class="panel side-panel">
+          <h3>模块悬浮说明</h3>
+          <div class="module-body" id="moduleBody">把鼠标移动到流程图模块上，这里会显示该模块的具体操作说明。</div>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <div id="codePeek" class="code-peek" aria-hidden="true"></div>
+
+  <script>
+    const moduleDocs = {
+      init: {
+        title: "初始化 3 个 32 位内部状态",
+        text: "根据密码初始化 key0 / key1 / key2。\n初始化细节此处省略。"
+      },
+      load: {
+        title: "读取下一个明文字节",
+        text: "从输入明文中按字节顺序读取。\n每轮处理 1 字节，作为循环入口。"
+      },
+      gen: {
+        title: "生成伪随机字节",
+        text: "只根据 Key2 生成，和 Key0/Key1 无关。\ntemp = (Key2 & 0xffff) | 2\npseudo = ((temp * (temp ^ 1)) >> 8) & 0xff"
+      },
+      xor: {
+        title: "异或得到密文字节",
+        text: "密文字节 = 明文字节 XOR 伪随机字节。"
+      },
+      update: {
+        title: "用明文字节更新内部状态",
+        text: "1) Key0 = crc32(Key0, char)\n2) Key1 = (Key1 + (Key0 & 0xff)) * 134775813 + 1\n3) Key2 = crc32(Key2, Key1 >> 24)",
+        hoverHtml: "按你提供的规则更新：<br>1) Key0 = <span class=\"fn-link\" data-snippet-key=\"crc32\">crc32(Key0, char)</span><br>2) Key1 = (Key1 + (Key0 &amp; 0xff)) * 134775813 + 1<br>3) Key2 = <span class=\"fn-link\" data-snippet-key=\"crc32\">crc32(Key2, Key1 &gt;&gt; 24)</span><br><br><small style=\"color:#aac2bd\">把光标移到 <b>crc32(...)</b> 上可查看内部实现</small>"
+      },
+      check: {
+        title: "是否还有字节",
+        text: "若还有明文字节，回到“读取下一个明文字节”；若没有，则进入输出阶段。"
+      },
+      finish: {
+        title: "输出完整密文",
+        text: "汇总所有密文字节，得到最终密文输出。"
+      }
+    };
+
+    const edges = [
+      { from: "init", to: "load", kind: "curve-left" },
+      { from: "load", to: "gen", kind: "right" },
+      { from: "gen", to: "xor", kind: "down" },
+      { from: "xor", to: "update", kind: "down" },
+      { from: "update", to: "check", kind: "left" },
+      { from: "check", to: "load", kind: "loop-up" },
+      { from: "check", to: "finish", kind: "curve-right" }
+    ];
+
+    const els = {
+      diagramPanel: document.getElementById("diagramPanel"),
+      diagramViewport: document.getElementById("diagramViewport"),
+      diagram: document.getElementById("diagram"),
+      edgeGroup: document.getElementById("edgeGroup"),
+      hoverCard: document.getElementById("hoverCard"),
+      codePeek: document.getElementById("codePeek"),
+      moduleBody: document.getElementById("moduleBody"),
+      zoomPct: document.getElementById("zoomPct"),
+      btnZoomOut: document.getElementById("btnZoomOut"),
+      btnZoomIn: document.getElementById("btnZoomIn"),
+      btnZoomReset: document.getElementById("btnZoomReset"),
+      btnFullscreen: document.getElementById("btnFullscreen")
+    };
+
+    const snippetDocs = {
+      crc32: {
+        title: "crc32(crc, byte) 的内部实现",
+        code: `crc ^= byte;
+for (int i = 0; i < 8; i++) {
+    if (crc & 1) crc = (crc >> 1) ^ POLY;
+    else         crc = crc >> 1;
+}`
+      }
+    };
+
+    const nodeElements = {};
+    let hoverHideTimer = null;
+    let zoom = 1;
+    let zoomBeforeFullscreen = 1;
+
+    const ZOOM_MIN = 0.55;
+    const ZOOM_MAX = 8;
+    const ZOOM_STEP = 0.12;
+
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function renderHoverCardHtml(doc) {
+      const body = doc.hoverHtml || escapeHtml(doc.text).replace(/\n/g, "<br>");
+      return `<h4>${escapeHtml(doc.title)}</h4><p>${body}</p>`;
+    }
+
+    function clearHoverHideTimer() {
+      if (!hoverHideTimer) return;
+      clearTimeout(hoverHideTimer);
+      hoverHideTimer = null;
+    }
+
+    function isInsideHoverZones(target) {
+      if (!target) return false;
+      if (els.hoverCard.contains(target) || els.codePeek.contains(target)) return true;
+      return Object.values(nodeElements).some((node) => node.contains(target));
+    }
+
+    function hideCodePeek() {
+      els.codePeek.classList.remove("visible");
+      els.codePeek.setAttribute("aria-hidden", "true");
+    }
+
+    function clearActiveNodes() {
+      Object.values(nodeElements).forEach((n) => n.classList.remove("active"));
+    }
+
+    function scheduleHideHoverCard(delay = 320) {
+      clearHoverHideTimer();
+      hoverHideTimer = setTimeout(() => {
+        els.hoverCard.classList.remove("visible");
+        hideCodePeek();
+        clearActiveNodes();
+        hoverHideTimer = null;
+      }, delay);
+    }
+
+    function showCodePeek(snippetKey, anchorEl) {
+      const snippet = snippetDocs[snippetKey];
+      if (!snippet || !anchorEl) return;
+      const panel = els.codePeek;
+      panel.innerHTML = `<h5>${escapeHtml(snippet.title)}</h5><pre><code>${escapeHtml(snippet.code)}</code></pre>`;
+      panel.classList.add("visible");
+      panel.setAttribute("aria-hidden", "false");
+      panel.style.visibility = "hidden";
+
+      const rect = anchorEl.getBoundingClientRect();
+      const panelW = panel.offsetWidth || 360;
+      const panelH = panel.offsetHeight || 180;
+      let x = rect.right + 10;
+      if (x + panelW > window.innerWidth - 8) x = Math.max(8, rect.left - panelW - 10);
+      let y = rect.top - 8;
+      if (y + panelH > window.innerHeight - 8) y = Math.max(8, window.innerHeight - panelH - 8);
+      panel.style.left = `${x}px`;
+      panel.style.top = `${y}px`;
+      panel.style.visibility = "visible";
+    }
+
+    function showModuleDoc(nodeId) {
+      const doc = moduleDocs[nodeId];
+      if (!doc) return;
+      els.moduleBody.textContent = `${doc.title}\n\n${doc.text}`;
+      hideCodePeek();
+      clearHoverHideTimer();
+
+      clearActiveNodes();
+      nodeElements[nodeId].classList.add("active");
+
+      const card = els.hoverCard;
+      card.innerHTML = renderHoverCardHtml(doc);
+      card.classList.add("visible");
+      card.style.visibility = "hidden";
+
+      const node = nodeElements[nodeId];
+      const diagramW = 760;
+      const diagramH = 650;
+      const cardW = 258;
+      const rightX = node.offsetLeft + node.offsetWidth + 4;
+      const leftX = node.offsetLeft - cardW - 4;
+      const x = (rightX + cardW <= diagramW - 8) ? rightX : Math.max(8, leftX);
+      const cardH = Math.max(122, card.offsetHeight);
+      const centerY = node.offsetTop + (node.offsetHeight / 2) - (cardH / 2);
+      const y = Math.max(8, Math.min(centerY, diagramH - cardH - 8));
+      card.style.left = `${x}px`;
+      card.style.top = `${y}px`;
+      card.style.visibility = "visible";
+    }
+
+    function setZoom(value) {
+      const clamped = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, value));
+      zoom = Math.round(clamped * 100) / 100;
+      els.diagramViewport.style.setProperty("--flow-scale", String(zoom));
+      els.zoomPct.textContent = `${Math.round(zoom * 100)}%`;
+      els.btnZoomOut.disabled = zoom <= ZOOM_MIN;
+      els.btnZoomIn.disabled = zoom >= ZOOM_MAX;
+    }
+
+    function zoomBy(step) {
+      setZoom(zoom + step);
+    }
+
+    function fitDiagramToViewportWidth() {
+      const viewportWidth = els.diagramViewport.clientWidth;
+      if (!viewportWidth) return;
+      setZoom(viewportWidth / 760);
+    }
+
+    function updateFullscreenButton() {
+      const on = document.fullscreenElement === els.diagramPanel;
+      els.btnFullscreen.textContent = on ? "退出全屏" : "全屏放大";
+      els.btnFullscreen.title = on ? "退出全屏" : "全屏显示";
+    }
+
+    async function toggleFullscreen() {
+      try {
+        if (document.fullscreenElement === els.diagramPanel) {
+          await document.exitFullscreen();
+          return;
+        }
+        if (!document.fullscreenElement && els.diagramPanel.requestFullscreen) {
+          zoomBeforeFullscreen = zoom;
+          await els.diagramPanel.requestFullscreen();
+        }
+      } catch (err) {
+        console.error("切换全屏失败:", err);
+      }
+    }
+
+    function edgeKey(from, to) {
+      return `${from}->${to}`;
+    }
+
+    function getPoint(rect, side) {
+      if (side === "top") return { x: rect.left + rect.width / 2, y: rect.top };
+      if (side === "bottom") return { x: rect.left + rect.width / 2, y: rect.top + rect.height };
+      if (side === "left") return { x: rect.left, y: rect.top + rect.height / 2 };
+      return { x: rect.left + rect.width, y: rect.top + rect.height / 2 };
+    }
+
+    function makePath(fromRect, toRect, kind) {
+      let p1;
+      let p2;
+      if (kind === "down") {
+        p1 = getPoint(fromRect, "bottom");
+        p2 = getPoint(toRect, "top");
+      } else if (kind === "right") {
+        p1 = getPoint(fromRect, "right");
+        p2 = getPoint(toRect, "left");
+      } else if (kind === "left") {
+        p1 = getPoint(fromRect, "left");
+        p2 = getPoint(toRect, "right");
+      } else {
+        p1 = getPoint(fromRect, "bottom");
+        p2 = getPoint(toRect, "top");
+      }
+
+      const c1 = { x: p1.x, y: p1.y };
+      const c2 = { x: p2.x, y: p2.y };
+
+      if (kind === "down") {
+        c1.y += 36;
+        c2.y -= 36;
+      } else if (kind === "right") {
+        c1.x += 60;
+        c2.x -= 60;
+      } else if (kind === "left") {
+        c1.x -= 60;
+        c2.x += 60;
+      } else if (kind === "curve-left") {
+        c1.x -= 34;
+        c1.y += 24;
+        c2.x += 34;
+        c2.y -= 24;
+      } else if (kind === "curve-right") {
+        c1.x += 34;
+        c1.y += 24;
+        c2.x -= 34;
+        c2.y -= 24;
+      } else if (kind === "loop-up") {
+        c1.x -= 110;
+        c1.y -= 70;
+        c2.x -= 110;
+        c2.y += 70;
+      }
+
+      return `M ${p1.x.toFixed(1)} ${p1.y.toFixed(1)} C ${c1.x.toFixed(1)} ${c1.y.toFixed(1)}, ${c2.x.toFixed(1)} ${c2.y.toFixed(1)}, ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
+    }
+
+    function drawEdges() {
+      els.edgeGroup.innerHTML = "";
+      edges.forEach((edge) => {
+        const fromEl = nodeElements[edge.from];
+        const toEl = nodeElements[edge.to];
+        if (!fromEl || !toEl) return;
+
+        const fromRect = {
+          left: fromEl.offsetLeft,
+          top: fromEl.offsetTop,
+          width: fromEl.offsetWidth,
+          height: fromEl.offsetHeight
+        };
+        const toRect = {
+          left: toEl.offsetLeft,
+          top: toEl.offsetTop,
+          width: toEl.offsetWidth,
+          height: toEl.offsetHeight
+        };
+
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("class", "edge-line");
+        path.setAttribute("d", makePath(fromRect, toRect, edge.kind));
+        path.setAttribute("marker-end", "url(#arrowHead)");
+        path.dataset.edge = edgeKey(edge.from, edge.to);
+        els.edgeGroup.appendChild(path);
+      });
+    }
+
+    function bindEvents() {
+      document.querySelectorAll(".node").forEach((node) => {
+        const id = node.dataset.node;
+        nodeElements[id] = node;
+        node.addEventListener("mouseenter", () => showModuleDoc(id));
+        node.addEventListener("mouseleave", (event) => {
+          if (isInsideHoverZones(event.relatedTarget)) return;
+          scheduleHideHoverCard(360);
+        });
+      });
+
+      els.hoverCard.addEventListener("mouseenter", clearHoverHideTimer);
+      els.hoverCard.addEventListener("mouseleave", (event) => {
+        if (isInsideHoverZones(event.relatedTarget)) return;
+        scheduleHideHoverCard(360);
+      });
+
+      els.codePeek.addEventListener("mouseenter", clearHoverHideTimer);
+      els.codePeek.addEventListener("mouseleave", (event) => {
+        if (isInsideHoverZones(event.relatedTarget)) return;
+        scheduleHideHoverCard(320);
+      });
+
+      els.hoverCard.addEventListener("mouseover", (event) => {
+        const target = event.target.closest(".fn-link[data-snippet-key]");
+        if (!target) return;
+        showCodePeek(target.dataset.snippetKey, target);
+      });
+
+      els.hoverCard.addEventListener("mouseout", (event) => {
+        const target = event.target.closest(".fn-link[data-snippet-key]");
+        if (!target) return;
+        const to = event.relatedTarget && event.relatedTarget.closest
+          ? event.relatedTarget.closest(".fn-link[data-snippet-key]")
+          : null;
+        if (to === target) return;
+        if (event.relatedTarget && els.codePeek.contains(event.relatedTarget)) return;
+        hideCodePeek();
+      });
+
+      els.btnZoomOut.addEventListener("click", () => zoomBy(-ZOOM_STEP));
+      els.btnZoomIn.addEventListener("click", () => zoomBy(ZOOM_STEP));
+      els.btnZoomReset.addEventListener("click", () => setZoom(1));
+      els.btnFullscreen.addEventListener("click", toggleFullscreen);
+
+      document.addEventListener("fullscreenchange", () => {
+        const on = document.fullscreenElement === els.diagramPanel;
+        if (on) setTimeout(fitDiagramToViewportWidth, 20);
+        else setZoom(zoomBeforeFullscreen || 1);
+        updateFullscreenButton();
+      });
+
+      window.addEventListener("resize", () => {
+        if (document.fullscreenElement === els.diagramPanel) fitDiagramToViewportWidth();
+        drawEdges();
+      });
+    }
+
+    bindEvents();
+    setZoom(1);
+    updateFullscreenButton();
+    drawEdges();
+  </script>
+</body>
+</html>

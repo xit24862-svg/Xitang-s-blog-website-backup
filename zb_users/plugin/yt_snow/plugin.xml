@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin version="php">
+<id>yt_snow</id>
+<name>四季飞扬</name>
+<url>https://www.ytecn.com/</url>
+<note>为您的网站添加浪漫的全屏雪花/樱花飞舞效果</note>
+<description>这是一款四季飞舞插件，可以在您的网站上添加浪漫的雪花/樱花效果，提升用户体验和节日氛围。</description>
+<path>main.php</path>
+<include>include.php</include>
+<level>1</level>
+<author>
+  <name>豫唐网络</name>
+  <email>admin@ytecn.com</email>
+  <url>https://www.ytecn.com</url>
+</author>
+<source>
+  <name></name>
+  <email></email>
+  <url></url>
+</source>
+<adapted>173540</adapted>
+<version>1.1.0</version>
+<pubdate>2025-12-19</pubdate>
+<modified>2026-03-07</modified>
+<price>0</price>
+<phpver>7.0</phpver>
+<advanced>
+  <dependency></dependency>
+  <rewritefunctions></rewritefunctions>
+  <existsfunctions></existsfunctions>
+  <conflict></conflict>
+</advanced>
+<sidebars>
+  <sidebar1></sidebar1>
+  <sidebar2></sidebar2>
+  <sidebar3></sidebar3>
+  <sidebar4></sidebar4>
+  <sidebar5></sidebar5>
+  <sidebar6></sidebar6>
+  <sidebar7></sidebar7>
+  <sidebar8></sidebar8>
+  <sidebar9></sidebar9>
+</sidebars>
+</plugin>

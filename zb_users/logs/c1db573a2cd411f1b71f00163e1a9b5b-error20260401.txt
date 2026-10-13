@@ -1,0 +1,80 @@
+[2026-04-01 19:12:08 .55350400 +08:00] ERROR system 139.214.247.128
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key "default"',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_users/cache/compiled/xh_002/comments.php',
+  4 => 8,
+)
+[2026-04-01 19:16:35 .92118900 +08:00] EXCEPTION system 147.79.59.221
+array (
+  0 => 'Exception',
+  1 => '验证码输入错误',
+  2 => 38,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/c_system_event.php',
+  4 => 36,
+)
+[2026-04-01 19:17:04 .14300400 +08:00] EXCEPTION system 147.79.59.221
+array (
+  0 => 'Exception',
+  1 => '登录失败',
+  2 => 8,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/c_system_event.php',
+  4 => 66,
+)
+[2026-04-01 19:17:36 .95790000 +08:00] EXCEPTION system 147.79.59.221
+array (
+  0 => 'Exception',
+  1 => '验证码输入错误',
+  2 => 38,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/c_system_event.php',
+  4 => 36,
+)
+[2026-04-01 19:18:00 .19449600 +08:00] EXCEPTION system 147.79.59.188
+array (
+  0 => 'Exception',
+  1 => '登录失败',
+  2 => 8,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/c_system_event.php',
+  4 => 66,
+)
+[2026-04-01 19:18:42 .71839500 +08:00] EXCEPTION system 147.79.59.188
+array (
+  0 => 'Exception',
+  1 => '验证码输入错误',
+  2 => 38,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/c_system_event.php',
+  4 => 36,
+)
+[2026-04-01 19:18:58 .98647700 +08:00] EXCEPTION system 147.79.59.221
+array (
+  0 => 'Exception',
+  1 => '登录失败',
+  2 => 8,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/c_system_event.php',
+  4 => 66,
+)
+[2026-04-01 19:19:31 .14087600 +08:00] EXCEPTION system 147.79.59.221
+array (
+  0 => 'Exception',
+  1 => '登录失败',
+  2 => 8,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/c_system_event.php',
+  4 => 66,
+)
+[2026-04-01 19:20:07 .26833400 +08:00] EXCEPTION system 147.79.59.188
+array (
+  0 => 'Exception',
+  1 => '登录失败',
+  2 => 8,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/c_system_event.php',
+  4 => 66,
+)
+[2026-04-01 19:20:39 .27018500 +08:00] EXCEPTION system 147.79.59.188
+array (
+  0 => 'Exception',
+  1 => '登录失败',
+  2 => 8,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/c_system_event.php',
+  4 => 66,
+)

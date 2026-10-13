@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>咱鸡儿抓恐龙</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <div class="pixel-noise"></div>
+
+    <main class="game-frame">
+      <header class="topbar pixel-panel">
+        <div>
+          <p class="eyebrow">PIXEL CHASE ARCADE</p>
+          <h1>咱鸡儿抓恐龙</h1>
+        </div>
+        <div class="topbar-meta">
+          <div class="meta-chip">
+            <span class="meta-label">难度</span>
+            <strong id="difficultyLabel">普通</strong>
+          </div>
+          <div class="meta-chip">
+            <span class="meta-label">音效</span>
+            <strong id="soundLabel">开启</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="stage-panel pixel-panel">
+        <div id="stageWrap" class="stage-wrap" tabindex="0" aria-label="游戏主区域">
+          <canvas id="gameCanvas" width="1280" height="720" aria-label="游戏画面"></canvas>
+
+          <div class="stage-overlay">
+            <div class="stage-topbar">
+              <div class="hud-title">
+                <span id="phaseText">主菜单</span>
+                <small id="statusText">开始前先看操场底部的字母窗口。</small>
+              </div>
+              <div class="hud-stats">
+                <div class="stat-card">
+                  <span>距离差</span>
+                  <strong id="leadValue">0</strong>
+                </div>
+                <div class="stat-card">
+                  <span>连击</span>
+                  <strong id="comboValue">0</strong>
+                </div>
+                <div class="stat-card">
+                  <span>命中</span>
+                  <strong id="hitValue">0</strong>
+                </div>
+              </div>
+            </div>
+
+            <div id="menuOverlay" class="menu-overlay">
+              <div class="menu-panel">
+                <p class="section-kicker">开始菜单</p>
+                <h2>进入追逐赛</h2>
+                <p class="menu-copy">
+                  操场底部有一个随机字母窗口。最左侧高亮字母就是现在该按的键，按对后窗口左移，并在最右侧补入新的随机字母。
+                </p>
+
+                <div class="hero-showcase">
+                  <div class="showcase-card">
+                    <div class="mini-sprite police-mini"></div>
+                    <span>咱鸡儿</span>
+                  </div>
+                  <div class="showcase-vs">VS</div>
+                  <div class="showcase-card">
+                    <div class="mini-sprite dino-mini"></div>
+                    <span>恐龙</span>
+                  </div>
+                </div>
+
+                <div class="option-group">
+                  <span class="option-title">难度选择</span>
+                  <div class="difficulty-grid">
+                    <button class="pixel-button difficulty-button is-active" data-difficulty="normal">普通</button>
+                    <button class="pixel-button difficulty-button" data-difficulty="easy">简单</button>
+                    <button class="pixel-button difficulty-button" data-difficulty="hard">困难</button>
+                  </div>
+                  <p id="difficultyDesc" class="option-desc"></p>
+                </div>
+
+                <ul class="rule-list">
+                  <li>看游戏窗口底部字母栏。</li>
+                  <li>按最左高亮字母，咱鸡儿前冲。</li>
+                  <li>按错不会推进，恐龙继续拉开。</li>
+                  <li>追上恐龙就赢，被拉开太久就输。</li>
+                  <li>安卓手机可直接点底部触屏按键游玩。</li>
+                </ul>
+
+                <div class="menu-actions">
+                  <button id="startButton" class="pixel-button primary-button">开始游戏</button>
+                  <button id="soundButton" class="pixel-button secondary-button">音效：开启</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="stage-bottom-ui">
+              <div class="bottom-row">
+                <div class="track-prompt-window" id="trackPromptWindow">
+                  <div class="window-caption-row">
+                    <span class="window-caption">操场字母窗口</span>
+                    <span id="feedbackBadge" class="feedback-badge">READY</span>
+                  </div>
+                  <div class="prompt-window-inner">
+                    <div id="currentLetterBox" class="current-letter-box">
+                      <span class="current-label">当前</span>
+                      <span id="promptLetter" class="current-letter">A</span>
+                    </div>
+                    <div id="sequencePreview" class="track-sequence-strip" aria-label="随机字母窗口"></div>
+                  </div>
+                  <div class="window-tip">
+                    按中最左高亮字母后，整个窗口向左推进，尾部会随机补一个新字母。
+                  </div>
+                </div>
+
+                <div class="danger-dock">
+                  <div class="danger-card">
+                    <span>危险倒计时</span>
+                    <div class="danger-bar">
+                      <div id="dangerFill" class="danger-fill"></div>
+                    </div>
+                    <strong id="dangerText">安全</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="touch-dock">
+                <div class="touch-title">触屏按键</div>
+                <div id="touchControls" class="touch-controls" aria-label="触屏字母按钮"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="dangerOverlay" class="danger-overlay"></div>
+          <div id="countdownOverlay" class="countdown-overlay hidden">3</div>
+        </div>
+      </section>
+    </main>
+
+    <div id="resultOverlay" class="result-overlay hidden">
+      <div class="result-panel pixel-panel">
+        <p id="resultTag" class="result-tag">WIN</p>
+        <h2 id="resultTitle">咱鸡儿得手</h2>
+        <p id="resultSummary" class="result-summary">继续来一局，看看能不能打出更高连击。</p>
+        <div class="result-stats">
+          <div class="result-stat">
+            <span>命中次数</span>
+            <strong id="resultHits">0</strong>
+          </div>
+          <div class="result-stat">
+            <span>最高连击</span>
+            <strong id="resultCombo">0</strong>
+          </div>
+          <div class="result-stat">
+            <span>难度</span>
+            <strong id="resultDifficulty">普通</strong>
+          </div>
+        </div>
+        <div class="result-actions">
+          <button id="restartButton" class="pixel-button primary-button">再来一局</button>
+          <button id="menuButton" class="pixel-button secondary-button">返回主菜单</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./game.js"></script>
+</body>
+</html>

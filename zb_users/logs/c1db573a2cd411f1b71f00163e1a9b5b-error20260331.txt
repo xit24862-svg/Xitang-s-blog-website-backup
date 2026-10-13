@@ -1,0 +1,246 @@
+[2026-03-31 17:58:45 .10824100 +08:00] ERROR system 139.215.46.252
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key 0',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_users/theme/Zit/include.php',
+  4 => 101,
+)
+[2026-03-31 17:58:58 .26858700 +08:00] ERROR system 139.215.46.252
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key 0',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_users/theme/Zit/include.php',
+  4 => 101,
+)
+[2026-03-31 17:59:06 .20679000 +08:00] ERROR system 139.215.46.252
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key 0',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_users/theme/Zit/include.php',
+  4 => 101,
+)
+[2026-03-31 17:59:06 .76008400 +08:00] ERROR system 139.215.46.252
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key 0',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_users/theme/Zit/include.php',
+  4 => 101,
+)
+[2026-03-31 18:05:47 .75551600 +08:00] ERROR system 139.215.46.252
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key "Cover"',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/lib/base.php',
+  4 => 108,
+)
+[2026-03-31 18:05:48 .10878900 +08:00] ERROR system 139.215.46.252
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key "Cover"',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/lib/base.php',
+  4 => 108,
+)
+[2026-03-31 18:06:13 .04562300 +08:00] ERROR system 139.215.46.252
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key "Cover"',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/lib/base.php',
+  4 => 108,
+)
+[2026-03-31 18:06:14 .57149100 +08:00] ERROR system 139.215.46.252
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key "Cover"',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/lib/base.php',
+  4 => 108,
+)
+[2026-03-31 18:07:51 .89411200 +08:00] EXCEPTION system 139.215.46.252
+array (
+  0 => 'Exception',
+  1 => '没有权限',
+  2 => 6,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/cmd.php',
+  4 => 23,
+)
+[2026-03-31 18:08:10 .14987300 +08:00] EXCEPTION system 139.215.46.252
+array (
+  0 => 'Exception',
+  1 => '没有权限',
+  2 => 6,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/cmd.php',
+  4 => 23,
+)
+[2026-03-31 18:11:12 .34124600 +08:00] EXCEPTION system 139.215.46.252
+array (
+  0 => 'Exception',
+  1 => '没有权限',
+  2 => 6,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/cmd.php',
+  4 => 23,
+)
+[2026-03-31 18:11:18 .11264400 +08:00] EXCEPTION system 139.215.46.252
+array (
+  0 => 'Exception',
+  1 => '没有权限',
+  2 => 6,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/cmd.php',
+  4 => 23,
+)
+[2026-03-31 18:11:19 .46323800 +08:00] EXCEPTION system 139.215.46.252
+array (
+  0 => 'Exception',
+  1 => '没有权限',
+  2 => 6,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/cmd.php',
+  4 => 23,
+)
+[2026-03-31 18:11:20 .32188500 +08:00] EXCEPTION system 139.215.46.252
+array (
+  0 => 'Exception',
+  1 => '没有权限',
+  2 => 6,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/cmd.php',
+  4 => 23,
+)
+[2026-03-31 18:11:20 .85547900 +08:00] EXCEPTION system 139.215.46.252
+array (
+  0 => 'Exception',
+  1 => '没有权限',
+  2 => 6,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/cmd.php',
+  4 => 23,
+)
+[2026-03-31 18:11:40 .13592400 +08:00] EXCEPTION system 139.215.46.252
+array (
+  0 => 'Exception',
+  1 => '登录失败',
+  2 => 8,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/c_system_event.php',
+  4 => 66,
+)
+[2026-03-31 18:15:00 .73953200 +08:00] EXCEPTION system 139.215.46.252
+array (
+  0 => 'Exception',
+  1 => '登录失败',
+  2 => 8,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/c_system_event.php',
+  4 => 66,
+)
+[2026-03-31 18:15:58 .29548400 +08:00] EXCEPTION system 139.215.46.252
+array (
+  0 => 'Exception',
+  1 => '没有权限',
+  2 => 6,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/cmd.php',
+  4 => 23,
+)
+[2026-03-31 18:18:26 .66624300 +08:00] EXCEPTION system 139.215.46.252
+array (
+  0 => 'Exception',
+  1 => '登录失败',
+  2 => 8,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/c_system_event.php',
+  4 => 66,
+)
+[2026-03-31 18:20:08 .29404700 +08:00] EXCEPTION system 139.215.46.252
+array (
+  0 => 'Exception',
+  1 => '登录失败',
+  2 => 8,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/c_system_event.php',
+  4 => 66,
+)
+[2026-03-31 18:35:39 .19738500 +08:00] EXCEPTION system 139.215.46.252
+array (
+  0 => 'Exception',
+  1 => '密码只能由A-Za-z0-9`~!?@#$%^&*-_字符组成，且不能小于8位、大于20位。',
+  2 => 54,
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_system/function/c_system_event.php',
+  4 => 1725,
+)
+[2026-03-31 22:16:11 .44360600 +08:00] ERROR system 111.27.47.11
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key "default"',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_users/cache/compiled/xh_002/comments.php',
+  4 => 8,
+)
+[2026-03-31 22:29:43 .52268900 +08:00] ERROR system 5.34.218.213
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key "default"',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_users/cache/compiled/xh_002/comments.php',
+  4 => 8,
+)
+[2026-03-31 22:33:44 .46629400 +08:00] ERROR system 5.34.218.213
+mysql error id:
+array (
+  0 => 1091,
+  1 => 'Can\'t DROP \'zbp_log_VTSC\'; check that column/key exists',
+)
+[2026-03-31 22:35:01 .14964600 +08:00] ERROR system 111.27.47.11
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key "default"',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_users/cache/compiled/xh_002/comments.php',
+  4 => 8,
+)
+[2026-03-31 22:35:18 .57674600 +08:00] ERROR system 111.27.47.11
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key "default"',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_users/cache/compiled/xh_002/comments.php',
+  4 => 8,
+)
+[2026-03-31 22:35:48 .72785700 +08:00] ERROR system 111.27.47.11
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key "default"',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_users/cache/compiled/xh_002/comments.php',
+  4 => 8,
+)
+[2026-03-31 22:38:05 .39113900 +08:00] ERROR system 111.27.47.11
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key "default"',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_users/cache/compiled/xh_002/comments.php',
+  4 => 8,
+)
+[2026-03-31 22:40:40 .76427700 +08:00] ERROR system 5.34.218.213
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key "default"',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_users/cache/compiled/xh_002/comments.php',
+  4 => 8,
+)
+[2026-03-31 22:49:45 .46181400 +08:00] ERROR system 5.34.218.213
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key "default"',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_users/cache/compiled/xh_002/comments.php',
+  4 => 8,
+)
+[2026-03-31 22:49:57 .74374100 +08:00] ERROR system 5.34.218.213
+array (
+  0 => 'E_WARNING',
+  1 => 2,
+  2 => 'Undefined array key "default"',
+  3 => '/www/wwwroot/www.xitangnb.cn/zb_users/cache/compiled/xh_002/comments.php',
+  4 => 8,
+)

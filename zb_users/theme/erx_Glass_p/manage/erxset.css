@@ -1,0 +1,72 @@
+﻿@charset "utf-8";
+/*
+For: 后台配置样式[ZBLOG-PHP主题]
+Author: 尔今
+Author Email: erx@qq.com
+Author URL: www.yiwuku.com
+*/
+input, textarea, select{vertical-align:middle;}
+input[type=file]{width:200px;}
+.hide{display:none;}
+.xtips{color:#999;margin-left:15px}
+.xtips-i{color:#f50;margin-left:15px}
+input.button.btnfix{position:fixed;bottom:10%;right:28px;height:auto;font-weight:bold;padding:12px 35px;border:0;border-radius:40px;border:1px #fff solid;}
+.btnfix.pulse{animation:btnPulse 2s infinite;}
+.erx-set-box{margin:0 0 20px;border:1px #bbb dashed;padding:9px;}
+.erx-set-box:hover{border-color:#39c;}
+.erx-set-box legend{margin:0 auto;font-size:16px;font-weight:bold;padding:0 9px;}
+.erx-set-box:hover legend{color:#39c;}
+.erx-set-box form{margin:0;}
+.erx-set-list li{display:flex;align-items:center;line-height:1.8;background:#f6f6f6;border:2px #f6f6f6 solid;}
+.erx-set-list li:nth-child(even){background:#fff;}
+.erx-set-list .lti{width:180px;text-align:right;font-weight:bold;padding:12px 15px;}
+.erx-set-list .rco{position:relative;width:calc(100% - 180px);padding:12px 15px;}
+.erx-set-list .rco::before{content:'';position:absolute;top:0;right:100%;width:0;height:100%;border-right:2px #fff solid;}
+.erx-set-list li:nth-child(even) .rco::before{border-right:2px #f6f6f6 solid;}
+.erx-set-list .rco hr{height:0;margin:12px 0;border-top:1px #ddd dashed;visibility:visible;}
+.erx-theme-tip dl{margin:0 0 5px;padding:25px;line-height:1.88;font-size:16px;background:#fbfbfb;}
+.erx-theme-tip dt{font-weight:bold;}
+.erx-theme-tip a{margin:0 6px;text-decoration:underline;}
+.erx-theme-tip .dot{color:#ddd;margin-right:3px;}
+.erx-theme-tip .more{margin:0;opacity:.6;text-decoration:none;}
+.colorint{position:relative;}
+.colorint input{width:80px;font-size:12px;text-indent:5px;border-radius:20px;}
+.colorint i{position:absolute;top:4px;right:5px;display:block;width:14px;height:14px;border:1px #eee solid;border-radius:50%;}
+#divMain a.xydiybtn{display:inline-block;line-height:1;position:relative;color:#fff;font-size:12px;background:#2B76C0;padding:6px 12px;border-radius:20px;vertical-align:middle;}
+#divMain a.xydiybtn:hover{background:#39c;}
+.xydiycon.act{position:relative;display:inline-block;z-index:9999;}
+.xylayer{position:absolute;top:50%;left:8px;margin-top:-66px;min-width:400px;min-height:120px;padding:12px;background:#fff;border:1px #bbb solid;border-radius:9px;box-shadow:9px 9px 9px #ddd;}
+.xylayer:before, .xylayer:after{content:'';display:block;position:absolute;top:60px;right:100%;width:0;height:0;margin-top:-8px;border:8px transparent solid;border-right-color:#bbb;}
+.xylayer:after{margin-right:-1px;border-right-color:#fff;}
+.xylayer textarea{width:100%;height:120px;padding:6px;}
+.memo-con{max-width:100%;max-height:200px;line-height:1.68;font-size:12px;word-break:break-all;overflow-y:auto;}
+@keyframes btnPulse {
+  from { box-shadow: 0 0 9px #ffff8d; }
+  50% { box-shadow: 0 0 18px #ff5c00; }
+  to { box-shadow: 0 0 9px #ffff8d; }
+}
+.bglist .int{width:100%;}
+.pshow{text-align:center;}
+.sctrl img{max-width:100%;max-height:80px;margin-left:20px;vertical-align:middle;}
+.upbox{position:relative;}
+.upbtn{position:absolute;top:2px;right:0;display:inline-block;line-height:25px;color:#fff;padding:0 12px;background:#3a6ea5;cursor:pointer;white-space:nowrap;}
+.upbtn:hover{background:#39c;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* erx@qq.com https://app.zblogcn.com/?auth=3ec7ee20-80f2-498a-a5dd-fda19b198194 */

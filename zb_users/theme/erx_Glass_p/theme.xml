@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<theme version="php">
+<id>erx_Glass_p</id>
+<name>半透液态玻璃</name>
+<url>https://www.yiwuku.com/a/CS7u1ev49msU</url>
+<note>毛玻璃暗色调手机平板移动端自适应自定义背景图磨砂玻璃质感，支持SEO优化TDK设置——《益吾库》尔今作品</note>
+<description>半透液态玻璃(Liquid Glass)主题———定制修改服务【联系www.yiwuku.com QQ77940140】</description>
+<path>main.php</path>
+<include></include>
+<level>1</level>
+<author>
+  <name>尔今</name>
+  <email>erx@qq.com</email>
+  <url>http://www.yiwuku.com/</url>
+</author>
+<source>
+  <name>尔今</name>
+  <email>erx@qq.com</email>
+  <url>http://www.yiwuku.com/</url>
+</source>
+<adapted>173000</adapted>
+<version>1.0</version>
+<pubdate>2025-09-08</pubdate>
+<modified>2025-10-28</modified>
+<price>0</price>
+<phpver>5.4</phpver>
+<advanced>
+  <dependency>AppCentre</dependency>
+  <rewritefunctions></rewritefunctions>
+  <existsfunctions></existsfunctions>
+  <conflict></conflict>
+</advanced>
+<sidebars>
+  <sidebar1>searchpanel|catalog|link|controlpanel</sidebar1>
+  <sidebar2>searchpanel|previous|controlpanel</sidebar2>
+  <sidebar3>searchpanel|previous|controlpanel|tags</sidebar3>
+  <sidebar2></sidebar2>
+  <sidebar3></sidebar3>
+  <sidebar4></sidebar4>
+  <sidebar5></sidebar5>
+  <sidebar6></sidebar6>
+  <sidebar7></sidebar7>
+  <sidebar8></sidebar8>
+  <sidebar9></sidebar9>
+</sidebars>
+</theme>

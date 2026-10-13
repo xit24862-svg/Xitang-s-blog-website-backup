@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin version="php">
+<id>AdminUI</id>
+<name>响应式后台UI-永久免费</name>
+<url>https://ranzt.com/</url>
+<note>永久免费 | 响应式 | 自适应 | 美化后台 | 更有序</note>
+<description></description>
+<path>main.php</path>
+<include>include.php</include>
+<level>1</level>
+<author>
+  <name>随然</name>
+  <email>ranzt@foxmail.com</email>
+  <url>https://ranzt.com/</url>
+</author>
+<source>
+  <name></name>
+  <email></email>
+  <url></url>
+</source>
+<adapted>172900</adapted>
+<version>2.1</version>
+<pubdate>2023-09-21</pubdate>
+<modified>2025-06-02</modified>
+<price>0</price>
+<phpver>7.0</phpver>
+<advanced>
+  <dependency></dependency>
+  <rewritefunctions></rewritefunctions>
+  <existsfunctions></existsfunctions>
+  <conflict>AdminColor</conflict>
+</advanced>
+<sidebars>
+  <sidebar1></sidebar1>
+  <sidebar2></sidebar2>
+  <sidebar3></sidebar3>
+  <sidebar4></sidebar4>
+  <sidebar5></sidebar5>
+  <sidebar6></sidebar6>
+  <sidebar7></sidebar7>
+  <sidebar8></sidebar8>
+  <sidebar9></sidebar9>
+</sidebars>
+</plugin>

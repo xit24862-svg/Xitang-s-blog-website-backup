@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<theme version="php">
+<id>xh_002</id>
+<name>✅ 灵动白狐（卧雪）</name>
+<url></url>
+<note>白狐卧雪而憩，轻嗅雪香，藏尽一身仙气。</note>
+<description></description>
+<path>main.php</path>
+<include>include.php</include>
+<level>1</level>
+<author>
+  <name></name>
+  <email></email>
+  <url></url>
+</author>
+<source>
+  <name>昕恒网络</name>
+  <email></email>
+  <url></url>
+</source>
+<adapted>173200</adapted>
+<version>1.6</version>
+<pubdate>2025-10-31</pubdate>
+<modified>2025-12-10</modified>
+<price>0</price>
+<phpver>7.2</phpver>
+<advanced>
+  <dependency></dependency>
+  <rewritefunctions></rewritefunctions>
+  <existsfunctions></existsfunctions>
+  <conflict></conflict>
+</advanced>
+<sidebars>
+  <sidebar1>calendar|controlpanel|catalog|searchpanel|comments|archives|favorite|link|misc</sidebar1>
+  <sidebar2></sidebar2>
+  <sidebar3></sidebar3>
+  <sidebar4></sidebar4>
+  <sidebar5></sidebar5>
+  <sidebar6></sidebar6>
+  <sidebar7></sidebar7>
+  <sidebar8></sidebar8>
+  <sidebar9></sidebar9>
+</sidebars>
+</theme>

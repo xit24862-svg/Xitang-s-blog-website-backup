@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>伴侣类型测试</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p class="tag">Relationship Lab</p>
+      <h1>你的伴侣大概率是什么类型？</h1>
+      <p class="subtitle">35 道尖锐问题，测出你最容易被哪类伴侣拿捏</p>
+    </section>
+
+    <section id="quizCard" class="card">
+      <div class="quiz-meta">
+        <p id="progressText" class="progress"></p>
+      </div>
+      <form id="quizForm"></form>
+      <div class="actions">
+        <button id="prevBtn" type="button" class="btn ghost">上一题</button>
+        <button id="nextBtn" type="button" class="btn">下一题</button>
+      </div>
+    </section>
+
+    <section id="resultCard" class="card hidden" aria-live="polite">
+      <h2 id="resultTitle"></h2>
+      <p id="resultDesc"></p>
+      <p id="resultTip" class="tip"></p>
+      <p id="resultMethod" class="method"></p>
+      <div class="result-visual">
+        <p id="resultBadge" class="result-badge"></p>
+        <img id="resultImage" class="result-image hidden" alt="">
+        <p id="resultImageHint" class="image-hint hidden"></p>
+      </div>
+      <div id="scoreBars" class="bars"></div>
+      <div class="evidence-box">
+        <h3>关键依据</h3>
+        <ul id="keyEvidence" class="evidence-list"></ul>
+      </div>
+      <details class="evidence-detail">
+        <summary>查看 35 题完整依据</summary>
+        <ol id="allEvidenceList" class="all-evidence"></ol>
+      </details>
+      <button id="retryBtn" type="button" class="btn ghost">再测一次</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
